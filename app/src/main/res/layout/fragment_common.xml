@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mian_background"
+    android:orientation="vertical"
+    tools:context="com.fskj.gaj.home.fragment.CommonFragment">
+
+    <com.fskj.gaj.view.NoDataView
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.fskj.gaj.view.NoDataView>
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    tools:context="com.fskj.gaj.notice.NoticeFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:background="@color/main_color"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:text="公示公告"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <!--<LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:id="@+id/llMeetingNotice"
+        android:background="@mipmap/img_meeting_notice"
+        android:layout_width="345dp"
+        android:layout_height="100dp">
+        <TextView
+            android:textColor="#666"
+            android:text="会议通知"
+            android:textSize="20sp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="345dp"
+        android:layout_height="100dp">
+        <LinearLayout
+            android:id="@+id/llPublicNotice"
+            android:background="@mipmap/img_public_notice"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#fffefe"
+                android:text="公示公告"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="75dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></LinearLayout>
+        <LinearLayout
+            android:id="@+id/llNotificationNotice"
+            android:background="@mipmap/img_notificaton_notice"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#fff"
+                android:text="通知通报"
+                android:textSize="20sp"
+                android:layout_marginLeft="75dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>-->
+
+
+    <com.fskj.gaj.view.NoDataView
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.fskj.gaj.view.NoDataView>
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+</LinearLayout>

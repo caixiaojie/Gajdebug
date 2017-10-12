@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    tools:context="com.fskj.gaj.home.HomeFragment">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:background="@color/main_color"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        >
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/img_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:text="重庆市公安局江北区分局"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></LinearLayout>
+            <ImageView
+                android:scaleType="center"
+                android:src="@mipmap/img_search"
+                android:id="@+id/img_search"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        app:tabIndicatorColor="@color/main_color"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/main_color"
+        app:tabTextColor="@color/txt_common_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+</LinearLayout>

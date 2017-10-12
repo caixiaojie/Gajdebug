@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    tools:context="com.fskj.gaj.ArticleSearchActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:background="@color/main_color"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/top_menu_back"
+                android:scaleType="center"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize" />
+            <TextView
+                android:textColor="#fff"
+                android:text="搜索"
+                android:textSize="18sp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:background="#fff"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:id="@+id/llSearch"
+            android:gravity="center"
+            android:background="@drawable/ll_shape"
+            android:layout_width="345dp"
+            android:layout_height="30dp">
+            <EditText
+                android:id="@+id/et_search"
+                android:imeOptions="actionSearch"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:background="@null"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:hint="请输入您想搜索的文章"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/img_search"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/img_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llSearchResult"
+        android:background="@color/line"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="33dp">
+            <TextView
+                android:id="@+id/tv_search_result"
+                android:textSize="14sp"
+                android:text="搜索结果"
+                android:textColor="#333"
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <com.fskj.gaj.view.NoDataView
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.fskj.gaj.view.NoDataView>
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+</LinearLayout>
