@@ -8,6 +8,7 @@
     android:background="#fff"
     tools:context="com.fskj.gaj.ArticleSearchActivity">
     <android.support.v7.widget.Toolbar
+        android:fitsSystemWindows="true"
         android:id="@+id/toolBar"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
@@ -28,7 +29,7 @@
             <TextView
                 android:textColor="#fff"
                 android:text="搜索"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -51,7 +52,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:background="@null"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:layout_marginLeft="10dp"
                 android:hint="请输入您想搜索的文章"
                 android:layout_width="match_parent"
@@ -76,7 +77,7 @@
             android:layout_height="33dp">
             <TextView
                 android:id="@+id/tv_search_result"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:text="搜索结果"
                 android:textColor="#333"
                 android:layout_marginLeft="16dp"

@@ -19,6 +19,7 @@ import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
 import com.fskj.gaj.notice.adapter.CommonMAdapter;
 import com.fskj.gaj.request.NoticeListRequest;
+import com.fskj.gaj.view.BusyView;
 import com.fskj.gaj.vo.MsgListResultVo;
 import com.fskj.gaj.vo.NoticeListCommitVo;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -43,6 +44,7 @@ public class NoticeFragment extends Fragment {
     private List<MsgListResultVo> msgList = new ArrayList<>();
     private NoticeListCommitVo noticeListCommitVo;
     private NoticeListRequest noticeListRequest;
+    private BusyView busyView;
 
     public static NoticeFragment getInstance( ){
         NoticeFragment f =new NoticeFragment();
@@ -110,6 +112,7 @@ public class NoticeFragment extends Fragment {
         initRequest();
 //初始化控件事件
         initWidgetEvent();
+        busyView = BusyView.showQuery(activity);
         noticeListRequest.send();
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
@@ -122,9 +125,13 @@ public class NoticeFragment extends Fragment {
         noticeListRequest = new NoticeListRequest(activity, noticeListCommitVo, new ResultListInterface<MsgListResultVo>() {
             @Override
             public void success(ResultTVO<MsgListResultVo> data) {
+                busyView.dismiss();
                 xRecyclerView.refreshComplete();
                 xRecyclerView.loadMoreComplete();
                 ArrayList<MsgListResultVo> msgListResultVos = data.getData();
+                if (noticeListCommitVo.isFirstPage()) {
+                    msgList.clear();
+                }
                 if (msgListResultVos != null && msgListResultVos.size() > 0) {
                     msgList.addAll(msgListResultVos);
                     adapter.notifyDataSetChanged();
@@ -140,6 +147,7 @@ public class NoticeFragment extends Fragment {
 
             @Override
             public void error(String errmsg) {
+                busyView.dismiss();
                 xRecyclerView.refreshComplete();
                 xRecyclerView.loadMoreComplete();
                 if (msgList.size() > 0) {
@@ -189,7 +197,7 @@ public class NoticeFragment extends Fragment {
         adapter.setmOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                NewsDetailActivity.gotoActivity(activity,msgList.get(position).getMid(),"notice","公示公告");
+                NewsDetailActivity.gotoActivity(activity,msgList.get(position).getMid(),"1","公示公告");
             }
         });
 

@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="com.fskj.gaj.MainActivity">
     <RelativeLayout
+        android:fitsSystemWindows="true"
         android:id="@+id/real_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,7 +43,7 @@
                     android:id="@+id/tv_home_page"
                     android:text="首页"
                     android:textColor="#1665e9"
-                    android:textSize="10sp"
+                    android:textSize="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -68,7 +69,7 @@
                 <TextView
                     android:id="@+id/tv_notice"
                     android:text="公示公告"
-                    android:textSize="10sp"
+                    android:textSize="10dp"
                     android:textColor="@color/txt_menu_gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -95,11 +96,12 @@
                     android:id="@+id/tv_duty"
                     android:text="今日值班"
                     android:textColor="@color/txt_menu_gray"
-                    android:textSize="10sp"
+                    android:textSize="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </FrameLayout>
+        <!--个人中心-->
         <FrameLayout
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -114,17 +116,26 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:id="@+id/img_room"
-                    android:src="@mipmap/img_menu_room_off"
+                    android:src="@mipmap/img_profile_off"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/tv_room"
-                    android:text="应用系统"
-                    android:textSize="10sp"
+                    android:text="个人中心"
+                    android:textSize="10dp"
                     android:textColor="@color/txt_menu_gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            <TextView
+                android:visibility="invisible"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_point_shape"
+                android:id="@+id/tv_circle"
+                android:layout_width="4dp"
+                android:layout_height="4dp" />
         </FrameLayout>
 
     </LinearLayout>

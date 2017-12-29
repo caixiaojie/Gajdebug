@@ -27,7 +27,7 @@ public class SignRequest extends BaseObjRequest<SignCommitVo,String> {
     protected ResultVO<String> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/sign.do";
         String jsonStr = HttpUtils.post(url,requestData.toMap());
-        Log.e("SignRequest",jsonStr);
+//        Log.e("SignRequest",jsonStr);
         ResultVO<String> vo = gson.fromJson(jsonStr,new TypeToken<ResultVO<String>>(){}.getType());
         return vo;
     }

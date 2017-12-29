@@ -11,7 +11,7 @@ public class MsgSearchResultVo {
      "createtime": "创建时间",
      "visit": 258,
      "type": "分类名称",
-     "reason": "0=图片新闻，1=文章  其它=通知"
+     "reason": "2=图片新闻，0=文章  其它=通知
 
      */
     private String mid;

@@ -13,9 +13,9 @@ import java.io.OutputStream;
 public class YFileManager {
 
 	public static void createDirectory() {
-		File nf = new File(Environment.getExternalStorageDirectory(), "ulabor");
+		File nf = new File(Environment.getExternalStorageDirectory(), "gaj");
 		if (nf.exists() == false) {
-			Log.e("ulabor","ulabor");
+//			Log.e("gaj","gaj");
 			nf.mkdirs();
 		}else{
 
@@ -31,7 +31,7 @@ public class YFileManager {
 	}
 
 	public File getRootDirectory() throws IOException {
-		return new File(Environment.getExternalStorageDirectory(), "ulabor");
+		return new File(Environment.getExternalStorageDirectory(), "gaj");
 	}
 
 	public static boolean checkSDCard() {
@@ -62,7 +62,7 @@ public class YFileManager {
 	 */
 	public static File getImageFile(String filename) throws IOException,Exception {
 		createDirectory();
-		File root = new File(Environment.getExternalStorageDirectory(), "ulabor");
+		File root = new File(Environment.getExternalStorageDirectory(), "gaj");
 		File img = new File(root, "Images");
 		if(img.exists()==false){
 			img.mkdirs();
@@ -72,14 +72,14 @@ public class YFileManager {
 	
 	public static File getCacheFile(String filename) {
 		createDirectory();
-		File root = new File(Environment.getExternalStorageDirectory(), "ulabor");
+		File root = new File(Environment.getExternalStorageDirectory(), "gaj");
 		File cache = new File(root, "Cache");
 		return new File(cache, filename);
 	}
 
 	public static void removeImageFiles() {
 		createDirectory();
-		File root = new File(Environment.getExternalStorageDirectory(), "ulabor");
+		File root = new File(Environment.getExternalStorageDirectory(), "gaj");
 		File cache = new File(root, "Images");
 		File[] files = cache.listFiles();
 		for (File f : files) {
@@ -89,7 +89,7 @@ public class YFileManager {
 
 	public static void removeCacheFiles() {
 		createDirectory();
-		File root = new File(Environment.getExternalStorageDirectory(), "ulabor");
+		File root = new File(Environment.getExternalStorageDirectory(), "gaj");
 		File cache = new File(root, "Cache");
 		File[] files = cache.listFiles();
 		for (File f : files) {

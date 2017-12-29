@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fskj.gaj.R;
 
@@ -16,6 +17,14 @@ import com.fskj.gaj.R;
 
 public class NoDataView extends LinearLayout {
 
+
+    private TextView textView;
+
+    public void setText(String str) {
+        if (textView != null && str != null){
+            textView.setText(str);
+        }
+    }
 
     public NoDataView(Context context) {
         super(context);
@@ -34,6 +43,7 @@ public class NoDataView extends LinearLayout {
 
     private void init(Context context){
         View v = LayoutInflater.from(context).inflate(R.layout.no_data_layout, null);
+        textView = (TextView) v.findViewById(R.id.tv_msg);
         v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,  ViewGroup.LayoutParams.MATCH_PARENT));
         this.addView(v);
     }

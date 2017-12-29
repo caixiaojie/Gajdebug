@@ -1,11 +1,22 @@
 package com.fskj.gaj;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.content.Intent;
@@ -17,11 +28,25 @@ import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.fskj.gaj.Remote.ResultObjInterface;
+import com.fskj.gaj.Remote.ResultVO;
+import com.fskj.gaj.Util.DownFile;
+import com.fskj.gaj.Util.StatusBarUtil;
+import com.fskj.gaj.Util.Tools;
 import com.fskj.gaj.duty.DutyFragment;
 import com.fskj.gaj.home.HomeFragment;
+import com.fskj.gaj.login.LoginActivity;
 import com.fskj.gaj.notice.NoticeFragment;
+import com.fskj.gaj.profile.ProfileFragment;
+import com.fskj.gaj.receiver.MyBroadcastReceiver;
+import com.fskj.gaj.request.GetAppVersionCode;
+import com.fskj.gaj.service.MyService;
 import com.fskj.gaj.system.RoomFragment;
+import com.fskj.gaj.view.BusyView;
+import com.fskj.gaj.view.MessageConfirmDialog;
+import com.fskj.gaj.vo.GetAppVersionCommitVo;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,15 +54,23 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
 
+    private TextView tvCircle;
+    private String strCount;
+    private GetAppVersionCommitVo getAppVersionCommitVo;
+    private GetAppVersionCode getAppVersionCode;
+    private ProgressDialog pd;
+
     public static void gotoActivity(Activity activity ){
         Intent intent=new Intent(activity,MainActivity.class);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
     }
 
     public static void gotoActivity(Fragment fr ){
         Intent intent=new Intent(fr.getActivity(),MainActivity.class);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
         fr.startActivity(intent);
     }
 
@@ -64,7 +97,10 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment ;
     NoticeFragment noticeFragment ;
     DutyFragment dutyFragment ;
-    RoomFragment roomFragment ;
+    ProfileFragment profileFragment ;
+    private BusyView busyView;
+
+    private MyBroadcast myBroadcast = new MyBroadcast();
 
 
     @Override
@@ -72,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activity=MainActivity.this;
-
+        StatusBarUtil.setColor(activity,getResources().getColor(R.color.main_color),0);
         inflater = LayoutInflater.from(activity);
 
 
@@ -90,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         llMenuRoom=(LinearLayout)findViewById(R.id.llMenuRoom);
         imgRoom=(ImageView)findViewById(R.id.img_room);
         tvRoom=(TextView)findViewById(R.id.tv_room);
+        tvCircle =(TextView)findViewById(R.id.tv_circle);
 //声明请求变量和返回结果
         initRequest();
 //初始化控件事件
@@ -103,9 +140,29 @@ public class MainActivity extends AppCompatActivity {
         lastpos = -1;
         setSelected(0);
 
+        //绑定服务
+        Intent intentService = new Intent(activity, MyService.class);
+        startService(intentService);
+
+        //注册广播
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("myBroadcast");
+        registerReceiver(myBroadcast,filter);
+
+        //检查版本号
+        getAppVersionCode.send();
+
     }
 
-    private void setSelected(int p) {
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myBroadcast);
+    }
+
+    public void setSelected(int p) {
         if (p == lastpos) {
             return;
         }
@@ -121,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     imgHome.setImageResource(R.mipmap.img_menu_home_on);
                     imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
-                    imgRoom.setImageResource(R.mipmap.img_menu_room_off);
+                    imgRoom.setImageResource(R.mipmap.img_profile_off);
                 lastpos = p;
 
                     if (homeFragment == null) {
@@ -147,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     imgHome.setImageResource(R.mipmap.img_menu_home_off);
                     imgNotice.setImageResource(R.mipmap.img_menu_notice_on);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
-                    imgRoom.setImageResource(R.mipmap.img_menu_room_off);
+                    imgRoom.setImageResource(R.mipmap.img_profile_off);
 
                     if (noticeFragment == null) {
                         noticeFragment = NoticeFragment.getInstance();
@@ -173,46 +230,49 @@ public class MainActivity extends AppCompatActivity {
                     imgHome.setImageResource(R.mipmap.img_menu_home_off);
                     imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_on);
-                    imgRoom.setImageResource(R.mipmap.img_menu_room_off);
+                    imgRoom.setImageResource(R.mipmap.img_profile_off);
 
-                    if (dutyFragment == null) {
+                    hideFragment(transaction);
+                    //if (dutyFragment == null) {
                         dutyFragment = DutyFragment.getInstance();
                         transaction.add(R.id.real_layout,dutyFragment);
-                    }
+                    //}
                     //隐藏所有fragment
-                    hideFragment(transaction);
-                    //显示需要显示的fragment
-                    transaction.show(dutyFragment);
 
+                    //显示需要显示的fragment
+//                    transaction.show(dutyFragment);
 //                    DutyFragment dutyFragment = DutyFragment.getInstance();
 //                    transaction.replace(R.id.real_layout,dutyFragment);
                     transaction.commit();
                     lastpos = p;
                     break;
                 case 3:
-                    tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-                    tvNotice.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-                    tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-                    tvRoom.setTextColor(getResources().getColor(R.color.main_color));
+                    //拦截个人中心
+                    if (LoginInfo.getLoginState(activity)) {
+                        tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+                        tvNotice.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+                        tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+                        tvRoom.setTextColor(getResources().getColor(R.color.main_color));
 
-                    imgHome.setImageResource(R.mipmap.img_menu_home_off);
-                    imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
-                    imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
-                    imgRoom.setImageResource(R.mipmap.img_menu_room_on);
+                        imgHome.setImageResource(R.mipmap.img_menu_home_off);
+                        imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
+                        imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
+                        imgRoom.setImageResource(R.mipmap.img_profile_on);
 
-                    if (roomFragment == null) {
-                        roomFragment = RoomFragment.getInstance();
-                        transaction.add(R.id.real_layout,roomFragment);
+                        if (profileFragment == null) {
+                            profileFragment = ProfileFragment.getInstance(strCount);
+                            transaction.add(R.id.real_layout, profileFragment);
+                        }
+                        //隐藏所有fragment
+                        hideFragment(transaction);
+                        //显示需要显示的fragment
+                        transaction.show(profileFragment);
+                        transaction.commit();
+                        lastpos = p;
+                    }else {
+                        //跳登录页面
+                        LoginActivity.gotoActivity(activity);
                     }
-                    //隐藏所有fragment
-                    hideFragment(transaction);
-                    //显示需要显示的fragment
-                    transaction.show(roomFragment);
-
-//                    RoomFragment roomFragment = RoomFragment.getInstance();
-//                    transaction.replace(R.id.real_layout,roomFragment);
-                    transaction.commit();
-                    lastpos = p;
                     break;
             }
     }
@@ -226,10 +286,11 @@ public class MainActivity extends AppCompatActivity {
             transaction.hide(noticeFragment);
         }
         if(dutyFragment != null){
-            transaction.hide(dutyFragment);
+            transaction.remove(dutyFragment);
+            dutyFragment=null;
         }
-        if(roomFragment != null){
-            transaction.hide(roomFragment);
+        if(profileFragment != null){
+            transaction.hide(profileFragment);
         }
     }
 
@@ -241,10 +302,76 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void goHome() {
+        setSelected(0);
+    }
     //声明请求变量和返回结果
     private void initRequest(){
+        getAppVersionCommitVo = new GetAppVersionCommitVo();
+        getAppVersionCommitVo.setVid(""+Tools.getVersionCode(activity));
+        getAppVersionCode = new GetAppVersionCode(activity, getAppVersionCommitVo, new ResultObjInterface<String>() {
+            @Override
+            public void success(ResultVO<String> data) {
+                String url = data.getData();
+                if (url != null && url.equals("") == false) {
+                    showDialogUpdate(url);
+                }
+            }
+
+            @Override
+            public void error(String errmsg) {
+                Toast.makeText(activity,errmsg,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 提示版本更新的对话框
+     */
+    private void showDialogUpdate(final String url) {
+        MessageConfirmDialog.show(activity, "版本升级", "发现新版本！请及时更新", "取消", "确定", new MessageConfirmDialog.OnConfirmClickListener() {
+            @Override
+            public void onLeft() {
+
+            }
+
+            @Override
+            public void onRight() {
+                busyView=BusyView.showText(activity,"正在更新");
+                downFile.down(BuildConfig.PIC_PATH+url,"apk");//下载最新的版本程序
+            }
+        },false);
 
     }
+
+    DownFile downFile = new DownFile(new DownFile.DownFileListener() {
+        @Override
+        public void success(String filepath) {
+            //安装
+            busyView.dismiss();
+            installApk(filepath);
+        }
+
+
+
+        @Override
+        public void errror(String errmsg) {
+            busyView.dismiss();
+            Toast.makeText(activity,errmsg,Toast.LENGTH_SHORT).show();
+        }
+
+    });
+
+    private void installApk(String filepath) {
+        File file = new File(filepath);
+        Intent intent = new Intent();
+        //执行动作
+        intent.setAction(Intent.ACTION_VIEW);
+        //执行的数据类型
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        startActivity(intent);
+    }
+
 
     //初始化控件事件
     private void initWidgetEvent(){
@@ -269,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
                 setSelected(2);
             }
         });
-        //点击会议室
+        //点击个人中心
         llMenuRoom.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -305,7 +432,6 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
                 finish();
-                System.exit(0);
             }
             return false;
         }
@@ -315,5 +441,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+
+    private class MyBroadcast extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                String action = intent.getAction();
+                if ("myBroadcast".equals(action)) {
+                    Bundle bundle = intent.getExtras();
+                    String count = bundle.getString("count", "0");
+                    Message msg = handler.obtainMessage();
+                    msg.obj = count;
+                    msg.sendToTarget();
+                }
+            }
+        }
+    }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String count = (String) msg.obj;
+            strCount = count;
+            if (count != null && !"".equals(count) && !count.equals("0")) {
+                tvCircle.setVisibility(View.VISIBLE);
+            }else {
+                tvCircle.setVisibility(View.INVISIBLE);
+            }
+        }
+    };
+
+    public void hidePoint() {
+        tvCircle.setVisibility(View.INVISIBLE);
     }
 }

@@ -8,6 +8,7 @@ import com.fskj.gaj.Remote.BaseListRequest;
 import com.fskj.gaj.Remote.HttpUtils;
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
+import com.fskj.gaj.Util.DateTime;
 import com.fskj.gaj.vo.DutyResultVo;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,12 +22,21 @@ public class DutyRequest extends BaseListRequest<String,DutyResultVo> {
     public DutyRequest(Context activeContext, String requestData, ResultListInterface<DutyResultVo> listener) {
         super(activeContext, requestData, listener);
     }
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     @Override
     protected ResultTVO<DutyResultVo> Query_Process() throws IOException, Exception {
-        String url = BuildConfig.SERVER_IP + "/mobile/duty.do";
+        String url = BuildConfig.SERVER_IP + "/mobile/duty.do?date="+ getDate();
         String jsonStr = HttpUtils.get(url);
-        Log.e("DutyRequest",jsonStr);
+//        Log.e("DutyRequest",jsonStr);
         ResultTVO<DutyResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<DutyResultVo>>(){}.getType());
         return vo;
     }

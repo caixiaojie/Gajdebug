@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +19,7 @@ import android.view.View.OnClickListener;
 
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
+import com.fskj.gaj.Util.StatusBarUtil;
 import com.fskj.gaj.request.SignListRequest;
 import com.fskj.gaj.view.BusyView;
 import com.fskj.gaj.vo.SignListCommitVo;
@@ -61,7 +61,7 @@ public class SignRecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_record);
         activity=SignRecordActivity.this;
-
+        StatusBarUtil.setColor(activity,getResources().getColor(R.color.main_color),0);
         inflater = LayoutInflater.from(activity);
 
 

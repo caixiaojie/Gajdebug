@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/messageback_top"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:id="@+id/txt_message_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提示"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/messageback_buttom"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp">
+                
+                <LinearLayout
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ll_shape"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp">
+                    <EditText
+                        android:padding="10dp"
+                        android:gravity="start"
+                        android:textColor="#333"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:id="@+id/et_realname"
+                        android:hint="请输入拒绝原因"
+                        style="@style/edittext_default_copy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--<TextView
+                    android:id="@+id/txt_message_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="40dp"
+                    android:text="消息正文，目测不能超过两行。一定不能超过两行"
+                    android:textColor="#FF333333" />-->
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    style="@style/txt_small_commit_empay"
+                    android:id="@+id/txt_message_btnleft"
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:textSize="12dp"
+                    android:text="不忍拒绝" />
+
+
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    style="@style/txt_small_commit_full"
+                    android:id="@+id/txt_message_btnright"
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:textSize="12dp"
+                    android:text="残忍拒绝"
+
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

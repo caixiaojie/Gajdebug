@@ -27,7 +27,7 @@ public class SignListRequest extends BaseListRequest<SignListCommitVo,SignListRe
     protected ResultTVO<SignListResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/signlist.do?"+requestData.toString();
         String jsonStr = HttpUtils.get(url);
-        Log.e("SignListRequest",jsonStr);
+//        Log.e("SignListRequest",jsonStr);
         ResultTVO<SignListResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<SignListResultVo>>(){}.getType());
         return vo;
     }

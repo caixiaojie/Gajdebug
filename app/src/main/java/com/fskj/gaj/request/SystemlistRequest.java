@@ -26,7 +26,7 @@ public class SystemlistRequest extends BaseListRequest<String,SystemlistResultVo
     protected ResultTVO<SystemlistResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/systemlist.do";
         String jsonStr = HttpUtils.get(url);
-        Log.e("SystemlistRequest",jsonStr);
+//        Log.e("SystemlistRequest",jsonStr);
         ResultTVO<SystemlistResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<SystemlistResultVo>>(){}.getType());
         return vo;
     }

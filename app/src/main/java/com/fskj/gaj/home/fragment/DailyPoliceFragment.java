@@ -2,9 +2,12 @@ package com.fskj.gaj.home.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +50,36 @@ public class DailyPoliceFragment extends Fragment {
     private PageQuery pageQuery;
     private DailyPoliceRequest dailyPoliceRequest;
 
-    public static DailyPoliceFragment getInstance( ){
+
+    private boolean IS_LOADED = false;
+    private static int mSerial=0;
+    private int mTabPos=0;
+    private boolean isFirst = true;
+
+    private Handler handler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            if(!IS_LOADED){
+                IS_LOADED = true;
+                //这里执行加载数据的操作
+                dailyPoliceRequest.send();
+            }
+            return;
+        };
+    };
+
+    public void sendMessage(){
+        Message message = handler.obtainMessage();
+        message.sendToTarget();
+    }
+
+    public void setTabPos(int mTabPos) {
+        this.mTabPos = mTabPos;
+    }
+
+    public static DailyPoliceFragment getInstance(int serial ){
         DailyPoliceFragment f =new DailyPoliceFragment();
         Bundle bundle=new Bundle();
-
+        bundle.putInt("mSerial",serial);
         f.setArguments(bundle);
 
         return f;
@@ -66,7 +95,7 @@ public class DailyPoliceFragment extends Fragment {
         super.onAttach(activity);
         Bundle bundle=getArguments();
         if(bundle!=null){
-
+            mSerial = bundle.getInt("mSerial", 0);
         }
     }
 
@@ -86,8 +115,6 @@ public class DailyPoliceFragment extends Fragment {
         xRecyclerView=(XRecyclerView)v.findViewById(R.id.xRecyclerView);
 
 
-        noData.setVisibility(View.GONE);
-        xRecyclerView.setVisibility(View.GONE);
 
         layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false);
         xRecyclerView.setLayoutManager(layoutManager);
@@ -114,7 +141,11 @@ public class DailyPoliceFragment extends Fragment {
         initRequest();
 //初始化控件事件
         initWidgetEvent();
-        dailyPoliceRequest.send();
+//        dailyPoliceRequest.send();
+        if (isFirst && mTabPos==mSerial) {
+            isFirst = false;
+            sendMessage();
+        }
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
     }
@@ -135,8 +166,8 @@ public class DailyPoliceFragment extends Fragment {
 
                 if (msgListResultVos != null && msgListResultVos.size() > 0) {
                     msgList.addAll(msgListResultVos);
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
                 if (msgList.size() > 0) {
                     xRecyclerView.setVisibility(View.VISIBLE);
                     noData.setVisibility(View.GONE);

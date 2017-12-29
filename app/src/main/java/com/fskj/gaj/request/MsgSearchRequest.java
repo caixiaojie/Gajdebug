@@ -27,7 +27,7 @@ public class MsgSearchRequest extends BaseListRequest<MsgSearchCommitVo,MsgSearc
     protected ResultTVO<MsgSearchResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/msgsearch.do";
         String jsonStr = HttpUtils.post(url,requestData.toMap());
-        Log.e("MsgSearchRequest",jsonStr);
+//        Log.e("MsgSearchRequest",jsonStr);
         ResultTVO<MsgSearchResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<MsgSearchResultVo>>(){}.getType());
         return vo;
     }

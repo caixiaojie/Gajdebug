@@ -3,10 +3,12 @@ package com.fskj.gaj.home.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +53,7 @@ public class CommonFragment extends Fragment {
     private MsgListRequest msgListRequest;
     private List<MsgListResultVo> msgList = new ArrayList<>();
     private CommonAdapter adapter;
-    private Handler handler = new Handler();
+//    private Handler handler = new Handler();
     private List<String> titleENStr = new ArrayList<>();
     private List<String> titleZHStr = new ArrayList<>();
     private String strTitle;
@@ -59,10 +61,38 @@ public class CommonFragment extends Fragment {
     private XRecyclerView xRecyclerView;
     private LinearLayout llNoData;
 
-    public static CommonFragment getInstance(String type){
+
+    private boolean IS_LOADED = false;
+    private static int mSerial=0;
+    private int mTabPos=0;
+    private boolean isFirst = true;
+
+    private Handler handler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            if(!IS_LOADED){
+                IS_LOADED = true;
+                //这里执行加载数据的操作
+                msgListRequest.send();
+            }
+            return;
+        };
+    };
+
+    public void sendMessage(){
+        Message message = handler.obtainMessage();
+        message.sendToTarget();
+    }
+
+    public void setTabPos(int mTabPos) {
+        this.mTabPos = mTabPos;
+    }
+
+
+    public static CommonFragment getInstance(String type,int serial){
         CommonFragment f =new CommonFragment();
         Bundle bundle=new Bundle();
         bundle.putString("type",type);
+        bundle.putInt("mSerial",serial);
         f.setArguments(bundle);
 
         return f;
@@ -76,6 +106,7 @@ public class CommonFragment extends Fragment {
         Bundle bundle=getArguments();
         if(bundle!=null){
             type = bundle.getString("type", "");
+            mSerial = bundle.getInt("mSerial", 0);
         }
     }
 
@@ -103,8 +134,6 @@ public class CommonFragment extends Fragment {
         llNoData = (LinearLayout) v.findViewById(R.id.no_data);
         xRecyclerView = (XRecyclerView) v.findViewById(R.id.xRecyclerView);
 
-        llNoData.setVisibility(View.GONE);
-        xRecyclerView.setVisibility(View.GONE);
 
         xRecyclerView.setPullRefreshEnabled(true);
         xRecyclerView.setLoadingMoreEnabled(true);
@@ -143,7 +172,11 @@ public class CommonFragment extends Fragment {
         }
 //初始化控件事件
         initWidgetEvent();
-        msgListRequest.send();
+//        msgListRequest.send();
+        if (isFirst && mTabPos==mSerial) {
+            isFirst = false;
+            sendMessage();
+        }
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
     }
@@ -165,8 +198,8 @@ public class CommonFragment extends Fragment {
                 }
                 if (msgListResultVos != null && msgListResultVos.size() > 0) {
                     msgList.addAll(msgListResultVos);
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
 
                 if (msgList.size() > 0) {
                     llNoData.setVisibility(View.GONE);
@@ -202,7 +235,7 @@ public class CommonFragment extends Fragment {
         adapter.setmOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                NewsDetailActivity.gotoActivity(CommonFragment.this,msgList.get(position).getMid(),"msg",strTitle);
+                NewsDetailActivity.gotoActivity(CommonFragment.this,msgList.get(position).getMid(),"0",strTitle);
             }
         });
     }
@@ -259,6 +292,7 @@ public class CommonFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (mOnItemClickListener != null) {
+//                view.setBackground(getResources().getDrawable(R.drawable.item_selector));
                 //注意这里使用getTag方法获取position
                 mOnItemClickListener.onItemClick(view,(int)view.getTag());
             }
@@ -266,8 +300,10 @@ public class CommonFragment extends Fragment {
 
         class CommonViewHolder extends RecyclerView.ViewHolder{
             TextView tvTime,tvVisit,tvTitle;
+//            LinearLayout llItem;
             public CommonViewHolder(View itemView) {
                 super(itemView);
+//                llItem = (LinearLayout) itemView.findViewById(R.id.ll_item);
                 tvTime = (TextView) itemView.findViewById(R.id.tv_time);
                 tvVisit = (TextView) itemView.findViewById(R.id.tv_count);
                 tvTitle = (TextView) itemView.findViewById(R.id.tv_title);

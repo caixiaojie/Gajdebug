@@ -26,7 +26,7 @@ public class TypeListRequest extends BaseListRequest<String,TypeListResultVo> {
     protected ResultTVO<TypeListResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/typelist.do?";
         String jsonStr = HttpUtils.get(url);
-        Log.e("TypeListRequest",jsonStr);
+//        Log.e("TypeListRequest",jsonStr);
         ResultTVO<TypeListResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<TypeListResultVo>>(){}.getType());
         return vo;
     }

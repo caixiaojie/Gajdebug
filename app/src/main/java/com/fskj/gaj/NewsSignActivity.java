@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.content.Intent;
@@ -18,9 +17,11 @@ import android.view.View.OnClickListener;
 
 import com.fskj.gaj.Remote.ResultObjInterface;
 import com.fskj.gaj.Remote.ResultVO;
+import com.fskj.gaj.Util.StatusBarUtil;
 import com.fskj.gaj.Util.Tools;
 import com.fskj.gaj.request.SignRequest;
 import com.fskj.gaj.view.BusyView;
+import com.fskj.gaj.vo.LoginCommitVo;
 import com.fskj.gaj.vo.SignCommitVo;
 
 
@@ -28,6 +29,7 @@ public class NewsSignActivity extends AppCompatActivity {
 
 
     private String id;
+    private LoginCommitVo loginCommitVo;
 
     public static void gotoActivity(Activity activity , String id){
         Intent intent=new Intent(activity,NewsSignActivity.class);
@@ -59,7 +61,7 @@ public class NewsSignActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_sign);
         activity=NewsSignActivity.this;
-
+        StatusBarUtil.setColor(activity,getResources().getColor(R.color.main_color),0);
         inflater = LayoutInflater.from(activity);
 
 
@@ -70,6 +72,8 @@ public class NewsSignActivity extends AppCompatActivity {
         etPwd=(EditText)findViewById(R.id.et_pwd);
         tvRecord = (TextView) findViewById(R.id.tv_record);
         llCommit=(LinearLayout)findViewById(R.id.llCommit);
+
+        initUser();
 //声明请求变量和返回结果
         initRequest();
 //初始化控件事件
@@ -81,6 +85,17 @@ public class NewsSignActivity extends AppCompatActivity {
             signCommitVo.setMid(id);
         }
 
+    }
+
+    /**
+     * 初始化用户名密码（在登录的情况下）
+     */
+    private void initUser() {
+        LoginCommitVo loginInfo = LoginInfo.getLoginCommitInfo(activity);
+        if (loginInfo != null) {
+            etName.setText(loginInfo.getUsername());
+            etPwd.setText(loginInfo.getPassword());
+        }
     }
 
     @Override
@@ -98,8 +113,13 @@ public class NewsSignActivity extends AppCompatActivity {
             @Override
             public void success(ResultVO<String> data) {
                 busyView.dismiss();
-                Toast.makeText(activity,"签收成功",Toast.LENGTH_SHORT).show();
                 //签收成功
+                //保存用户名和密码
+//                LoginInfo.saveLoginCommitInfo(activity,loginCommitVo);
+//                LoginInfo.saveLoginState(activity,true);//保存登录成功的标示
+
+                Toast.makeText(activity,"签收成功",Toast.LENGTH_SHORT).show();
+
                 finish();
             }
 
@@ -134,6 +154,9 @@ public class NewsSignActivity extends AppCompatActivity {
                     Toast.makeText(activity,"请输入密码",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                loginCommitVo = new LoginCommitVo();
+                loginCommitVo.setUsername(strName);
+                loginCommitVo.setPassword(strPwd);
                 //封装请求体
                 signCommitVo.setUsername(strName);
                 signCommitVo.setPassword(strPwd);

@@ -2,9 +2,14 @@ package com.fskj.gaj.Util;
 
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,6 +40,9 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.fskj.gaj.AppConfig;
+import com.fskj.gaj.MainActivity;
+import com.fskj.gaj.NewsDetailActivity;
+import com.fskj.gaj.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -109,7 +117,7 @@ public class Tools {
 		} else {
 			String re = source.trim().replace("}", "").replace("{", "")
 					.replace("<", "").replace(">", "").replace("]", "")
-					.replace("[", "").replace("\"", "");
+					.replace("[", "").replace("\"", "").replace("\n", "<br>");
 			return re;
 		}
 	}
@@ -158,7 +166,7 @@ public class Tools {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		// 下面这句指定调用相机拍照后的照片存储的路径
 		File f = YFileManager.getImageFile(filename);
-		Log.e("file",f.getAbsolutePath());
+//		Log.e("file",f.getAbsolutePath());
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
 		activity.startActivityForResult(intent, AppConfig.Camera);
 	}
@@ -364,7 +372,7 @@ public class Tools {
 
 	public static  void whiteText(LinearLayout root){
 		int cnt=root.getChildCount();
-		Log.i("ddd","cnt="+cnt);
+//		Log.i("ddd","cnt="+cnt);
 		for(int i=0;i<cnt;i++){
 			View view=root.getChildAt(i);
 			if (view instanceof TextView){
@@ -444,5 +452,72 @@ public class Tools {
 			e.printStackTrace();
 		}
 		return degree;
+	}
+
+
+	public static void showNewsNotify(Context context,String mid,String title,String type,String articleTile) {
+		Intent intent0 = new Intent(context, MainActivity.class);
+
+		Intent intent1 = new Intent(context,NewsDetailActivity.class);
+		intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent1.putExtra("mid",mid);
+		intent1.putExtra("type",type);
+		intent1.putExtra("title",articleTile);
+
+		Intent[] intents = new Intent[]{intent0,intent1};
+
+		PendingIntent contentIntent = PendingIntent.getActivities(context, 0, intents,
+				PendingIntent.FLAG_UPDATE_CURRENT);
+
+		NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		Notification.Builder nb = new Notification.Builder(context);
+
+		nb.setAutoCancel(true).setTicker("新消息").setSmallIcon(R.mipmap.img_gaj_logo)
+				.setContentIntent(contentIntent).setContentTitle("关注内容通知")// 设置下拉列表里的标题
+				.setContentText(title);// 设置上下文内容
+		nb.setDefaults(Notification.DEFAULT_ALL);
+		Notification noti = nb.getNotification();
+		manager.notify(103, noti);
+		//点击弹窗 然后消失
+		//???
+
+
+
+//		NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//		Notification.Builder nb = new Notification.Builder(context);
+//
+//		nb.setAutoCancel(true).setTicker("新消息").setSmallIcon(R.mipmap.img_gaj_logo)
+//				.setContentTitle("关注内容通知")// 设置下拉列表里的标题
+//				.setContentText(content);// 设置上下文内容
+//		nb.setDefaults(Notification.DEFAULT_ALL);
+//		Notification noti = nb.getNotification();
+//		manager.notify(103, noti);
+	}
+
+	/**
+	 * EditText获取焦点并显示软键盘
+	 */
+	public static void showSoftInputFromWindow(Activity activity, EditText editText) {
+		editText.setFocusable(true);
+		editText.setFocusableInTouchMode(true);
+		editText.requestFocus();
+		activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+	}
+
+	/*
+* 获取当前程序的版本号
+*/
+	public static int getVersionCode(Context context){
+		try {
+		//获取packagemanager的实例
+		PackageManager packageManager = context.getPackageManager();
+		//getPackageName()是你当前类的包名，0代表是获取版本信息
+		PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+//		Log.e("TAG","版本号"+packInfo.versionCode);
+//		Log.e("TAG","版本名"+packInfo.versionName);
+		return packInfo.versionCode;
+		}catch (Exception e) {
+			return 1;
+		}
 	}
 }

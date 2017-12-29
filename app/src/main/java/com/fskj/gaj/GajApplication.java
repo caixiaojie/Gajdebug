@@ -11,6 +11,7 @@ public class GajApplication extends Application {
     private static GajApplication instance;
     private static Context context;
     public int position = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
 import com.fskj.gaj.AppConfig;
 import com.fskj.gaj.BuildConfig;
 import com.fskj.gaj.R;
+import com.fskj.gaj.Util.StatusBarUtil;
 
 public class DailyPoliceWebActivity extends AppCompatActivity {
 
@@ -51,7 +52,7 @@ public class DailyPoliceWebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_police_web);
         activity=DailyPoliceWebActivity.this;
-
+        StatusBarUtil.setColor(activity,getResources().getColor(R.color.main_color),0);
         inflater = LayoutInflater.from(activity);
 
 
@@ -81,7 +82,6 @@ public class DailyPoliceWebActivity extends AppCompatActivity {
                 progressBar.setProgress(newProgress);
                 if (newProgress == 100) {
                     progressBar.setVisibility(View.GONE);
-                    toolBar.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -98,7 +98,7 @@ public class DailyPoliceWebActivity extends AppCompatActivity {
             }
         };
         webView.setWebViewClient(wvc);
-//        webView.loadUrl(AppConfig.rootPath + path);
+//        webView.loadUrl(BuildConfig.SERVER_IP1 + path);
     }
 
     @Override

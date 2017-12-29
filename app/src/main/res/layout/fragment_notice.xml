@@ -8,6 +8,9 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:contentInsetStart="0dp"
+        app:contentInsetLeft="0dp"
         android:background="@color/main_color"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
@@ -16,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textColor="#fff"
                 android:text="公示公告"
                 android:layout_width="wrap_content"
@@ -34,7 +37,7 @@
         <TextView
             android:textColor="#666"
             android:text="会议通知"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
@@ -56,7 +59,7 @@
             <TextView
                 android:textColor="#fffefe"
                 android:text="公示公告"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="75dp"
                 android:layout_width="wrap_content"
@@ -74,7 +77,7 @@
             <TextView
                 android:textColor="#fff"
                 android:text="通知通报"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:layout_marginLeft="75dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"

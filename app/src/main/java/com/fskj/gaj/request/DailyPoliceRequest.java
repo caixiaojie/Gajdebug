@@ -27,7 +27,7 @@ public class DailyPoliceRequest extends BaseListRequest<PageQuery,MsgListResultV
     protected ResultTVO<MsgListResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP1+"/mobile/msglist.do?"+requestData.toString();
         String jsonStr = HttpUtils.get(url);
-        Log.e("MsgListRequest",jsonStr);
+//        Log.e("MsgListRequest",jsonStr);
         ResultTVO<MsgListResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<MsgListResultVo>>(){}.getType());
         return vo;
     }

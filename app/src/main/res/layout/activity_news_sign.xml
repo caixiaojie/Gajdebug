@@ -8,6 +8,7 @@
     tools:context="com.fskj.gaj.NewsSignActivity">
 
     <android.support.v7.widget.Toolbar
+        android:fitsSystemWindows="true"
         android:id="@+id/toolBar"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
@@ -15,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
         <RelativeLayout
+
             android:paddingRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
@@ -27,13 +29,13 @@
             <TextView
                 android:textColor="#fff"
                 android:text="新闻签收"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_record"
-                android:textSize="16sp"
+                android:textSize="14dp"
                 android:textColor="#fff"
                 android:text="签收记录"
                 android:layout_centerVertical="true"
@@ -54,7 +56,7 @@
         <TextView
             android:text="姓名:"
             android:textColor="#333"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
@@ -62,7 +64,7 @@
             android:paddingLeft="10dp"
             android:id="@+id/et_name"
             android:background="@drawable/shape_edit_text"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="#999"
             android:gravity="center_vertical"
             android:hint="请输入姓名"
@@ -81,7 +83,7 @@
         <TextView
             android:text="密码:"
             android:textColor="#333"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
@@ -89,7 +91,7 @@
             android:paddingLeft="10dp"
             android:id="@+id/et_pwd"
             android:background="@drawable/shape_edit_text"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="#999"
             android:inputType="textPassword"
             android:gravity="center_vertical"
@@ -112,7 +114,7 @@
         <TextView
             android:text="签收"
             android:textColor="#fff"
-            android:textSize="16sp"
+            android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -10,4 +10,8 @@
     <color name="txt_menu_gray">#666</color>
     <color name="line">#f5f6f7</color>
     <color name="mian_background">#fff</color>
+    <color name="item_click">#f0f0f0</color>
+
+    <color name="main_background">#f5f6f7</color>
+    <color name="white">#ffffff</color>
 </resources>

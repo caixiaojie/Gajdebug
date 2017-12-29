@@ -27,7 +27,7 @@ public class PicNewsListRequest extends BaseListRequest<PageQuery,PicNewsListRes
     protected ResultTVO<PicNewsListResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/picnewslist.do?"+requestData.toString();
         String jsonStr = HttpUtils.get(url);
-        Log.e("PicNewsListResultVo",jsonStr);
+//        Log.e("PicNewsListResultVo",jsonStr);
         ResultTVO<PicNewsListResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<PicNewsListResultVo>>(){}.getType());
         return vo;
     }

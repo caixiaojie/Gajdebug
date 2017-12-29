@@ -23,3 +23,40 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontwarn com.google.**
+-keep class com.google.gson.** {*;}
+-keep class com.google.protobuf.** {*;}
+
+
+-dontoptimize
+-dontpreverify
+
+
+
+# 业务 library,scan,view不做混淆
+-keep class com.fskj.gaj.vo.**  {*;}
+-keep class com.fskj.gaj.view.**  {*;}
+-keep class com.fskj.gaj.Remote.ResultTVO  {*;}
+-keep class com.fskj.gaj.Remote.ResultVO  {*;}
+
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

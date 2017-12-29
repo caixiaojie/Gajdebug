@@ -26,7 +26,7 @@ public class RoomListRequest extends BaseListRequest<String,RoomListResultVo> {
     protected ResultTVO<RoomListResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/roomlist.do";
         String jsonStr = HttpUtils.get(url);
-        Log.e("RoomListRequest",jsonStr);
+//        Log.e("RoomListRequest",jsonStr);
         ResultTVO<RoomListResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<RoomListResultVo>>(){}.getType());
         return vo;
     }

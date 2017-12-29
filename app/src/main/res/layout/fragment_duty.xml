@@ -7,6 +7,9 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:contentInsetStart="0dp"
+        app:contentInsetLeft="0dp"
         android:background="@color/main_color"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
@@ -15,14 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textColor="#fff"
                 android:text="今日值班"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
-
+    <com.fskj.gaj.view.NoDataView
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.fskj.gaj.view.NoDataView>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

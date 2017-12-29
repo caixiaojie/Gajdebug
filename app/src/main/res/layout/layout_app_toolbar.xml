@@ -36,7 +36,7 @@
                 android:scrollHorizontally="true"
                 android:text="重庆市公安局江北区分局"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 />
 
             <ImageView

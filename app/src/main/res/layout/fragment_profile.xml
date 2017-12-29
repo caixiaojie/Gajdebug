@@ -1,0 +1,231 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f6f7"
+    tools:context="com.fskj.gaj.profile.ProfileFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:background="@color/main_color"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_centerInParent="true"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:text="个人中心"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_exit"
+                android:text="退出"
+                android:textSize="14dp"
+                android:textColor="#fff"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/img_gaj_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:gravity="center_vertical"
+                android:textSize="16dp"
+                android:text="张三"
+                android:textColor="@color/main_color"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp" />
+            <TextView
+                android:id="@+id/tv_department"
+                android:gravity="center_vertical"
+                android:text="指挥中心"
+                android:textSize="14dp"
+                android:textColor="#666"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:background="@color/main_background"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <!--发布通知-->
+    <LinearLayout
+        android:background="@drawable/ll_selector"
+        android:id="@+id/llPub"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="发布通知"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/arrow_right"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/main_background"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <!--审核文章-->
+    <LinearLayout
+        android:background="@drawable/ll_selector"
+        android:id="@+id/llCheckArticle"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="审核文章"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/arrow_right"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/main_background"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+
+
+    <!--值班管理-->
+    <LinearLayout
+        android:background="@drawable/ll_selector"
+        android:id="@+id/llWeiHu"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="值班管理"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/arrow_right"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/main_background"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ll_selector"
+        android:id="@+id/llGuanzhu"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="我的关注"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="99"
+            android:visibility="invisible"
+            android:background="@drawable/txt_circle_shape"
+            android:layout_marginRight="5dp"
+            android:textSize="8dp"
+            android:id="@+id/tv_count"
+            android:minWidth="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp" />
+        <ImageView
+            android:src="@mipmap/arrow_right"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/main_background"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <!--修改密码-->
+    <LinearLayout
+        android:background="@drawable/ll_selector"
+        android:id="@+id/llChangePwd"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="修改密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/arrow_right"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/main_background"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

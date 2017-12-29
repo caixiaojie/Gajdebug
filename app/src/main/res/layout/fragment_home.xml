@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:textColor="#fff"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:layout_marginLeft="10dp"
                 android:text="重庆市公安局江北区分局"
                 android:layout_width="wrap_content"
@@ -44,6 +44,7 @@
         app:tabIndicatorColor="@color/main_color"
         app:tabIndicatorHeight="2dp"
         app:tabMode="scrollable"
+        app:tabTextAppearance="@style/tab_txt"
         app:tabSelectedTextColor="@color/main_color"
         app:tabTextColor="@color/txt_common_black"
         android:layout_width="match_parent"

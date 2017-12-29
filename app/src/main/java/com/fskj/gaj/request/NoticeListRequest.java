@@ -27,7 +27,7 @@ public class NoticeListRequest extends BaseListRequest<NoticeListCommitVo,MsgLis
     protected ResultTVO<MsgListResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/noticelist.do?" + requestData.toString();
         String jsonStr = HttpUtils.get(url);
-        Log.e("NoticeListRequest",jsonStr);
+//        Log.e("NoticeListRequest",jsonStr);
         ResultTVO<MsgListResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<MsgListResultVo>>(){}.getType());
         return vo;
     }

@@ -1,6 +1,11 @@
 package com.fskj.gaj.Util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -79,5 +84,25 @@ public class DateTime {
      */
 	public static String getCurrentTime(long t){
 		return String.valueOf(t);
+	}
+	public static String getCurrentFormatTime () {
+		Date date = new Date(System.currentTimeMillis());
+		String strDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+		return strDate;
+	}
+
+	//保存时间
+	public static void saveSendSuccessTime(Context context,String dateTime) {
+		SharedPreferences sp = Tools.getSharePreferences(context, "DATE_TIME");
+		SharedPreferences.Editor edit = sp.edit();
+//		String dateTime = getDateTime();
+		edit.putString("dateTime",dateTime);
+		edit.commit();
+	}
+	//获取上次请求成功的时间
+	public static String getSendSuccessTime(Context context) {
+		SharedPreferences sp = Tools.getSharePreferences(context, "DATE_TIME");
+		String dateTime = sp.getString("dateTime", "");
+		return dateTime;
 	}
 }

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f6f7"
+    tools:context="com.fskj.gaj.profile.ChangeDutyActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:background="@color/main_color"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/top_menu_back"
+                android:scaleType="center"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize" />
+            <TextView
+                android:layout_centerInParent="true"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:text="值班修改"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_delete"
+                android:text="删除"
+                android:textSize="14dp"
+                android:textColor="#fff"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <!--选择日期-->
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="315dp"
+        android:layout_height="40dp">
+        <TextView
+            android:text="时间选择"
+            android:textColor="#333"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/llSelectDate"
+            android:background="@drawable/shape_rectangle"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_date"
+                android:text="2017-08-29"
+                android:textSize="16dp"
+                android:textColor="#999"
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></LinearLayout>
+            <ImageView
+                android:src="@mipmap/img_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="315dp"
+        android:layout_height="40dp">
+        <TextView
+            android:text="姓名:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/et_name"
+            android:background="@drawable/shape_edit_text"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:gravity="center_vertical"
+            android:hint="请输入值班人员姓名"
+            android:textColorHint="#999"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>-->
+
+    <!--<LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="315dp"
+        android:layout_height="40dp">
+        <TextView
+            android:text="职位:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/et_job"
+            android:background="@drawable/shape_edit_text"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:gravity="center_vertical"
+            android:hint="请输入值班人员职位"
+            android:textColorHint="#999"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>-->
+
+    <!--<LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="315dp"
+        android:layout_height="40dp">
+        <TextView
+            android:text="电话:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/et_phone"
+            android:background="@drawable/shape_edit_text"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:inputType="phone"
+            android:gravity="center_vertical"
+            android:hint="请输入值班人员电话"
+            android:textColorHint="#999"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>-->
+
+   <!--
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="315dp"
+        android:layout_height="40dp">
+        <TextView
+            android:text="排序:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.AppCompatSpinner>
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:background="@color/white"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:text="姓&#8195;&#8195;名:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:id="@+id/et_name"
+            android:background="@null"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:gravity="center_vertical"
+            android:hint="请输入值班人员姓名"
+            android:textColorHint="#999"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:text="职&#8195;&#8195;位:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:id="@+id/et_job"
+            android:background="@null"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:gravity="center_vertical"
+            android:hint="请输入值班人员职位"
+            android:textColorHint="#999"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:text="电&#8195;&#8195;话:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:id="@+id/et_phone"
+            android:background="@null"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:inputType="phone"
+            android:gravity="center_vertical"
+            android:hint="请输入值班人员电话"
+            android:textColorHint="#999"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <!--排序-->
+    <LinearLayout
+        android:id="@+id/llSort"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_marginTop="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:text="排&#8195;&#8195;序:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:layout_marginRight="50dp"
+            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></android.support.v7.widget.AppCompatSpinner>
+
+        <ImageView
+            android:src="@mipmap/arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="@drawable/selector_btn_commit"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/llCommit"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="315dp"
+        android:layout_height="43dp">
+        <TextView
+            android:text="提交"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

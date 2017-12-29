@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f6f7"
+    tools:context="com.fskj.gaj.profile.PubNoticeActivity">
+    <android.support.v7.widget.Toolbar
+        android:fitsSystemWindows="true"
+        android:id="@+id/toolBar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:background="@color/main_color"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/top_menu_back"
+                android:scaleType="center"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize" />
+            <TextView
+                android:textColor="#fff"
+                android:text="发布通知"
+                android:textSize="18dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <!--<ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            &lt;!&ndash;标题&ndash;&gt;
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="315dp"
+                android:layout_height="40dp">
+                <TextView
+                    android:text="标题:"
+                    android:textColor="#333"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:layout_marginLeft="10dp"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/et_title"
+                    android:background="@drawable/shape_edit_text"
+                    android:textSize="14dp"
+                    android:textColor="#999"
+                    android:gravity="center_vertical"
+                    android:hint="请输入公示公告标题"
+                    android:textColorHint="#999"
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            &lt;!&ndash;类型&ndash;&gt;
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="315dp"
+                android:layout_height="40dp">
+                <TextView
+                    android:text="类型:"
+                    android:textColor="#333"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner"
+                    android:background="@drawable/shape_edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:spinnerMode="dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></android.support.v7.widget.AppCompatSpinner>
+            </LinearLayout>
+            &lt;!&ndash;内容&ndash;&gt;
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="315dp"
+                android:layout_height="300dp">
+                <TextView
+                    android:text="内容:"
+                    android:textColor="#333"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:padding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/et_content"
+                    android:background="@drawable/shape_edit_text"
+                    android:textSize="14dp"
+                    android:textColor="#999"
+                    android:gravity="start"
+                    android:hint="请输入公示公告内容"
+                    android:textColorHint="#999"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/selector_btn_commit"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:id="@+id/llPub"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="315dp"
+                android:layout_height="43dp">
+                <TextView
+                    android:text="发布"
+                    android:textColor="#fff"
+                    android:textSize="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>-->
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:text="标题:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:id="@+id/et_title"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:hint="请输入文章标题"
+            android:textColorHint="#999"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="43dp" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:id="@+id/llSelectArticleType"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:text="类型:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:textColor="#333"
+            android:id="@+id/tv_type"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="内容:"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/et_content"
+            android:background="@drawable/shape_edit_text"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:gravity="start"
+            android:hint="请输入文章内容"
+            android:textColorHint="#999"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/llPub"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:background="@drawable/selector_btn_commit"
+            android:gravity="center"
+            android:text="发布"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="43dp" />
+    </LinearLayout>
+</LinearLayout>

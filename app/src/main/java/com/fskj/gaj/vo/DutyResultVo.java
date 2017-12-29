@@ -14,6 +14,24 @@ public class DutyResultVo {
     private String name;
     private String job;
     private String phone;
+    private String sid;
+    private String sort;
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
 
     public String getName() {
         return name;

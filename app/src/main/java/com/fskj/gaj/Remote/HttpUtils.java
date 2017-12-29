@@ -43,7 +43,7 @@ public class HttpUtils {
                     formBody.add(entry.getKey(),entry.getValue());
                 }
                 if (BuildConfig.DEBUG) {
-                    Log.e("gaj",formBody.toString());
+                    Log.e("gaj",body.toString());
                 }
             }
             RequestBody requestBody = formBody.build();

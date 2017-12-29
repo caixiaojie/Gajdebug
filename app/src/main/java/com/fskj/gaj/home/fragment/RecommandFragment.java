@@ -4,10 +4,12 @@ package com.fskj.gaj.home.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +32,7 @@ import android.view.View.OnClickListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fskj.gaj.AppConfig;
+import com.fskj.gaj.BuildConfig;
 import com.fskj.gaj.GajApplication;
 import com.fskj.gaj.NewsDetailActivity;
 import com.fskj.gaj.OnItemClickListener;
@@ -54,28 +57,58 @@ public class RecommandFragment extends Fragment {
     private XRecyclerView xRecyclerView;
     private LinearLayout llNoData;
 
-    public static RecommandFragment getInstance( ){
+
+
+    private boolean IS_LOADED = false;
+    private  static int mSerial=0;
+    private int mTabPos=0;
+    private boolean isFirst = true;
+
+    private Handler handler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            if(!IS_LOADED){
+                IS_LOADED = true;
+                //这里执行加载数据的操作
+                picNewsListRequest.send();
+            }
+            return;
+        };
+    };
+
+    public void sendMessage(){
+        Message message = handler.obtainMessage();
+        message.sendToTarget();
+    }
+
+    public void setTabPos(int mTabPos) {
+        this.mTabPos = mTabPos;
+    }
+
+    public static RecommandFragment getInstance(int serial){
         RecommandFragment f =new RecommandFragment();
         Bundle bundle=new Bundle();
-
+        bundle.putInt("mSerial",serial);
         f.setArguments(bundle);
 
         return f;
     }
+
+//    public RecommandFragment(int serial){
+//        mSerial = serial;
+//    }
 
     private Activity activity;
     private PageQuery pageQuery;
     private PicNewsListRequest picNewsListRequest;
     private List<PicNewsListResultVo> picNewsList = new ArrayList<>();
     private RecommandAdapter adapter;
-    private Handler handler = new Handler();
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Bundle bundle=getArguments();
         if(bundle!=null){
-
+            mSerial = bundle.getInt("mSerial", 0);
         }
     }
     @Override
@@ -93,8 +126,6 @@ public class RecommandFragment extends Fragment {
         llNoData = (LinearLayout) v.findViewById(R.id.no_data);
         xRecyclerView = (XRecyclerView) v.findViewById(R.id.xRecyclerView);
 
-        llNoData.setVisibility(View.GONE);
-        xRecyclerView.setVisibility(View.GONE);
 
         xRecyclerView.setPullRefreshEnabled(true);
         xRecyclerView.setLoadingMoreEnabled(true);
@@ -124,7 +155,11 @@ public class RecommandFragment extends Fragment {
 
 //初始化控件事件
         initWidgetEvent();
-        picNewsListRequest.send();
+//        picNewsListRequest.send();
+        if (isFirst && mTabPos==mSerial) {
+            isFirst = false;
+            sendMessage();
+        }
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
     }
@@ -145,15 +180,18 @@ public class RecommandFragment extends Fragment {
                 }
                 if (newsListResultVos != null && newsListResultVos.size() > 0) {
                     picNewsList.addAll(newsListResultVos);
-                    adapter.notifyDataSetChanged();
                 }
+
+                adapter.notifyDataSetChanged();
+
 
                 if (picNewsList.size() > 0) {
                     llNoData.setVisibility(View.GONE);
                     xRecyclerView.setVisibility(View.VISIBLE);
                 }else {
-                    llNoData.setVisibility(View.VISIBLE);
-                    xRecyclerView.setVisibility(View.GONE);
+                    xRecyclerView.setEmptyView(llNoData);
+//                    llNoData.setVisibility(View.VISIBLE);
+//                    xRecyclerView.setVisibility(View.GONE);
                 }
             }
 
@@ -181,7 +219,7 @@ public class RecommandFragment extends Fragment {
         adapter.setmOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                NewsDetailActivity.gotoActivity(RecommandFragment.this,picNewsList.get(position).getPid(),"picNews","图文详情");
+                NewsDetailActivity.gotoActivity(RecommandFragment.this,picNewsList.get(position).getPid(),"2","图片新闻");
             }
         });
     }
@@ -226,9 +264,10 @@ public class RecommandFragment extends Fragment {
             ((MyViewHoler) holder).tvTitle.setText(vo.getTitle());
             ((MyViewHoler) holder).tvTime.setText(vo.getCreatetime());
             ((MyViewHoler) holder).tvCount.setText("" + vo.getVisit());
-            Glide.with(activity).load(AppConfig.picPath + vo.getImgurl())
+            Glide.with(activity).load(BuildConfig.PIC_PATH+ vo.getImgurl())
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.mipmap.img_news_three)
                     .error(R.mipmap.img_public_notice)
                     .into(((MyViewHoler) holder).img);
             holder.itemView.setTag(position);

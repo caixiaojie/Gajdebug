@@ -26,7 +26,7 @@ public class AddRuleRequest extends BaseObjRequest<AddRuleCommitVo,String> {
     protected ResultVO<String> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/addrule.do";
         String jsonStr = HttpUtils.post(url,requestData.toMap());
-        Log.e("AddRuleRequest",jsonStr);
+//        Log.e("AddRuleRequest",jsonStr);
         ResultVO<String> vo = gson.fromJson(jsonStr,new TypeToken<ResultVO<String>>(){}.getType());
         return vo;
     }

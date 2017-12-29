@@ -7,14 +7,10 @@
     android:background="@color/mian_background"
     android:orientation="vertical"
     tools:context="com.fskj.gaj.home.DailyPoliceWebActivity">
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:max="100" />
+
 
     <android.support.v7.widget.Toolbar
+        android:fitsSystemWindows="true"
         android:id="@+id/toolBar"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
@@ -35,12 +31,19 @@
                 android:id="@+id/tv_title"
                 android:textColor="#fff"
                 android:text="每日警情"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:max="100" />
 
     <WebView
         android:id="@+id/webView"

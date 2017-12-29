@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.fskj.gaj.profile.CheckArticleDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:fitsSystemWindows="true"
+        android:id="@+id/toolBar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:background="@color/main_color"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/top_menu_back"
+                android:scaleType="center"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize" />
+            <TextView
+                android:textColor="#fff"
+                android:text="文章详情"
+                android:textSize="18dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <ProgressBar
+        android:layout_below="@+id/toolBar"
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:max="100" />
+    <WebView
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/progressBar"
+        android:layout_weight="1"
+        android:id="@+id/webView"
+        android:layout_above="@+id/llBottom"
+        android:paddingBottom="73dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_width="315dp"
+        android:layout_height="43dp">
+
+        <TextView
+            style="@style/txt_small_commit_empay"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textColor="@color/main_color"
+            android:id="@+id/tv_refuse"
+            android:text="拒绝"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            style="@style/txt_small_commit_full"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:id="@+id/tv_pass"
+            android:text="通过"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

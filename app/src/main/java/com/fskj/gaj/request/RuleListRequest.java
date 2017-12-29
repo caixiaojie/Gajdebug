@@ -27,7 +27,7 @@ public class RuleListRequest extends BaseListRequest<RuleListCommitVo,RuleListRe
     protected ResultTVO<RuleListResultVo> Query_Process() throws IOException, Exception {
         String url = BuildConfig.SERVER_IP + "/mobile/rulelist.do?"+requestData.toString();
         String jsonStr = HttpUtils.get(url);
-        Log.e("RuleListRequest",jsonStr);
+//        Log.e("RuleListRequest",jsonStr);
         ResultTVO<RuleListResultVo> vo = gson.fromJson(jsonStr,new TypeToken<ResultTVO<RuleListResultVo>>(){}.getType());
         return vo;
     }

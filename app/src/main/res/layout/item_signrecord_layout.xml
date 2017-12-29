@@ -18,7 +18,7 @@
             android:layout_height="0dp">
             <TextView
                 android:gravity="right"
-                android:text="签到人:"
+                android:text="签收人:"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content" />
             <TextView

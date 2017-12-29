@@ -2,8 +2,11 @@ package com.fskj.gaj.home.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,10 +55,38 @@ public class Common2Fragment extends Fragment {
     private List<String> titleZHStr;
     private String strTitle;
 
-    public static Common2Fragment getInstance(String type ){
+
+    private boolean IS_LOADED = false;
+    private static int mSerial=0;
+    private int mTabPos=0;
+    private boolean isFirst = true;
+
+    private Handler handler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            if(!IS_LOADED){
+                IS_LOADED = true;
+                //这里执行加载数据的操作
+                noticeListRequest.send();
+            }
+            return;
+        };
+    };
+
+    public void sendMessage(){
+        Message message = handler.obtainMessage();
+        message.sendToTarget();
+    }
+
+    public void setTabPos(int mTabPos) {
+        this.mTabPos = mTabPos;
+    }
+
+
+    public static Common2Fragment getInstance(String type ,int serial){
         Common2Fragment f =new Common2Fragment();
         Bundle bundle=new Bundle();
         bundle.putString("type",type);
+        bundle.putInt("mSerial",serial);
         f.setArguments(bundle);
 
         return f;
@@ -71,6 +102,7 @@ public class Common2Fragment extends Fragment {
         Bundle bundle=getArguments();
         if(bundle!=null){
             type = bundle.getString("type", "");
+            mSerial = bundle.getInt("mSerial", 0);
         }
     }
 
@@ -88,8 +120,6 @@ public class Common2Fragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_common2, null);
         llNoData=(NoDataView)v.findViewById(R.id.no_data);
         xRecyclerView=(XRecyclerView)v.findViewById(R.id.xRecyclerView);
-        llNoData.setVisibility(View.GONE);
-        xRecyclerView.setVisibility(View.GONE);
 
 
         layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false);
@@ -130,7 +160,11 @@ public class Common2Fragment extends Fragment {
 
 //初始化控件事件
         initWidgetEvent();
-        noticeListRequest.send();
+//        noticeListRequest.send();
+        if (isFirst && mTabPos==mSerial) {
+            isFirst = false;
+            sendMessage();
+        }
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
     }
@@ -147,10 +181,13 @@ public class Common2Fragment extends Fragment {
                 xRecyclerView.refreshComplete();
                 xRecyclerView.loadMoreComplete();
                 ArrayList<MsgListResultVo> msgListResultVos = data.getData();
+                if (noticeListCommitVo.isFirstPage()) {
+                    msgList.clear();
+                }
                 if (msgListResultVos != null && msgListResultVos.size() > 0) {
                     msgList.addAll(msgListResultVos);
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
                 if (msgList.size() > 0) {
                     xRecyclerView.setVisibility(View.VISIBLE);
                     llNoData.setVisibility(View.GONE);
@@ -182,7 +219,7 @@ public class Common2Fragment extends Fragment {
         adapter.setmOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                NewsDetailActivity.gotoActivity(activity,msgList.get(position).getMid(),"notice",strTitle);
+                NewsDetailActivity.gotoActivity(activity,msgList.get(position).getMid(),"1",strTitle);
             }
         });
     }

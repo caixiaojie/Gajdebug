@@ -25,6 +25,7 @@ import com.fskj.gaj.home.fragment.CommonFragment;
 import com.fskj.gaj.home.fragment.DailyPoliceFragment;
 import com.fskj.gaj.home.fragment.RecommandFragment;
 import com.fskj.gaj.request.TypeListRequest;
+import com.fskj.gaj.view.BusyView;
 import com.fskj.gaj.vo.TypeListResultVo;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class HomeFragment extends Fragment {
 
 
     private ImageView imgSearch;
+    private int curTab = 0;
 
     public static HomeFragment getInstance( ){
         HomeFragment f =new HomeFragment();
@@ -56,6 +58,7 @@ public class HomeFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private HomePagerAdapter homePagerAdapter;
+    private BusyView busyView;
 
     @Override
     public void onAttach(Activity activity) {
@@ -85,10 +88,38 @@ public class HomeFragment extends Fragment {
         initRequest();
 //初始化控件事件
         initWidgetEvent();
+//        busyView = BusyView.showQuery(activity);
         typeListRequest.send();
         homePagerAdapter = new HomePagerAdapter(getChildFragmentManager(),fragmentList,zhTitleList);
         viewPager.setAdapter(homePagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(curTab);
+//        viewPager.setOffscreenPageLimit(3);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment fragment = homePagerAdapter.getItem(position);
+                if (fragment instanceof  CommonFragment) {
+                    ((CommonFragment) fragment).sendMessage();
+                }else if (fragment instanceof  Common2Fragment) {
+                    ((Common2Fragment) fragment).sendMessage();
+                }else if (fragment instanceof  DailyPoliceFragment){
+                    ((DailyPoliceFragment) fragment).sendMessage();
+                }else if (fragment instanceof  RecommandFragment){
+                    ((RecommandFragment) fragment).sendMessage();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
     }
@@ -99,6 +130,7 @@ public class HomeFragment extends Fragment {
         typeListRequest = new TypeListRequest(activity, "", new ResultListInterface<TypeListResultVo>() {
             @Override
             public void success(ResultTVO<TypeListResultVo> data) {
+//                busyView.dismiss();
                 ArrayList<TypeListResultVo> typeListResultVos = data.getData();
                 if (typeListResultVos != null && typeListResultVos.size() > 0) {
                     typeList.addAll(typeListResultVos);
@@ -114,11 +146,15 @@ public class HomeFragment extends Fragment {
                 //第一项是不变的
                 enTitleList.add(0,"");
                 zhTitleList.add(0,"推荐");
-                fragmentList.add(0, RecommandFragment.getInstance());
+                RecommandFragment.getInstance(0).setTabPos(0);
+                fragmentList.add(0, RecommandFragment.getInstance(0));
+
                 //第二项是不变的
                 enTitleList.add(1,"");
                 zhTitleList.add(1,"每日警情");
-                fragmentList.add(1, DailyPoliceFragment.getInstance());
+                DailyPoliceFragment.getInstance(1).setTabPos(1);
+                fragmentList.add(1, DailyPoliceFragment.getInstance(1));
+
 
                 //将中文title存起来
                 TitleTypeSP.saveENTitleStr(activity,enTitleList);
@@ -127,9 +163,13 @@ public class HomeFragment extends Fragment {
                 for (int i = 0; i < typeList.size(); i++) {
                     Fragment ff;
                     if(typeList.get(i).getType().equals("msg")){
-                        ff=CommonFragment.getInstance(typeList.get(i).getEn());
+                        ff=CommonFragment.getInstance(typeList.get(i).getEn(),i);
+//                        CommonFragment.getInstance(typeList.get(i).getEn()).setTabPos(i+2);
+                        ((CommonFragment)ff).setTabPos(i);
                     }else{
-                        ff = Common2Fragment.getInstance(typeList.get(i).getEn());
+                        ff = Common2Fragment.getInstance(typeList.get(i).getEn(),i);
+//                        Common2Fragment.getInstance(typeList.get(i).getEn()).setTabPos(i+2);
+                        ((Common2Fragment)ff).setTabPos(i);
                     }
                     fragmentList.add(ff);
                 }
@@ -141,6 +181,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void error(String errmsg) {
+//                busyView.dismiss();
                 Toast.makeText(activity,errmsg,Toast.LENGTH_SHORT).show();
             }
         });

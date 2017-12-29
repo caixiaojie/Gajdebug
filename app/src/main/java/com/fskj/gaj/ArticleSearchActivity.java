@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +18,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
@@ -28,13 +25,10 @@ import android.view.View.OnClickListener;
 
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
+import com.fskj.gaj.Util.StatusBarUtil;
 import com.fskj.gaj.Util.Tools;
-import com.fskj.gaj.home.fragment.CommonFragment;
-import com.fskj.gaj.home.fragment.RecommandFragment;
-import com.fskj.gaj.notice.adapter.CommonMAdapter;
 import com.fskj.gaj.request.MsgSearchRequest;
 import com.fskj.gaj.view.BusyView;
-import com.fskj.gaj.vo.MsgListResultVo;
 import com.fskj.gaj.vo.MsgSearchCommitVo;
 import com.fskj.gaj.vo.MsgSearchResultVo;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -86,7 +80,7 @@ public class ArticleSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_search);
         activity=ArticleSearchActivity.this;
-
+        StatusBarUtil.setColor(activity,getResources().getColor(R.color.main_color),0);
         inflater = LayoutInflater.from(activity);
 
 
@@ -252,12 +246,19 @@ public class ArticleSearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 MsgSearchResultVo vo = msgSearchList.get(position);
-                if (vo.getReason().equals("0")) {//图片新闻
-                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),"picNews",vo.getType());
-                }else if (vo.getReason().equals("1")) {//文章
-                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),"msg",vo.getType());
+//                if (vo.getReason().equals("2")) {//图片新闻
+//                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),"picNews",vo.getType());
+//                }else if (vo.getReason().equals("0")) {//文章
+//                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),"msg",vo.getType());
+//                }else {
+//                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),"notice",vo.getType());
+//                }
+                if (vo.getReason().equals("2")) {//图片新闻
+                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),vo.getReason(),vo.getType());
+                }else if (vo.getReason().equals("0")) {//文章
+                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),vo.getReason(),vo.getType());
                 }else {
-                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),"notice",vo.getType());
+                    NewsDetailActivity.gotoActivity(activity,vo.getMid(),vo.getReason(),vo.getType());
                 }
             }
         });

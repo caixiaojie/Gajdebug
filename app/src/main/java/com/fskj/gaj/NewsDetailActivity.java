@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,23 +19,26 @@ import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.fskj.gaj.Util.StatusBarUtil;
+import com.fskj.gaj.Util.StatusBarUtils;
+
 
 public class NewsDetailActivity extends AppCompatActivity {
 
 
 
-    public static void gotoActivity(Activity activity , String id, String type ,String title){
+    public static void gotoActivity(Activity activity , String mid, String type ,String title){
         Intent intent=new Intent(activity,NewsDetailActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("mid",mid);
         intent.putExtra("type",type);
         intent.putExtra("title",title);
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.slide_right_in,R.anim.slide_left_out);
     }
 
-    public static void gotoActivity(Fragment fr , String id, String type ,String title){
+    public static void gotoActivity(Fragment fr , String mid, String type ,String title){
         Intent intent=new Intent(fr.getActivity(),NewsDetailActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("mid",mid);
         intent.putExtra("type",type);
         intent.putExtra("title",title);
         fr.startActivity(intent);
@@ -57,6 +59,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
         activity=NewsDetailActivity.this;
+        StatusBarUtil.setColor(activity,getResources().getColor(R.color.main_color),0);
 
         inflater = LayoutInflater.from(activity);
 
@@ -68,7 +71,6 @@ public class NewsDetailActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
         webView=(WebView)findViewById(R.id.webView);
-        toolBar.setVisibility(View.GONE);
 //声明请求变量和返回结果
         initRequest();
 //初始化控件事件
@@ -76,18 +78,24 @@ public class NewsDetailActivity extends AppCompatActivity {
 //传入参数
         Bundle bundle=this.getIntent().getExtras();
         if(bundle!=null){
-            id = bundle.getString("id", "");
+            id = bundle.getString("mid", "");
             String type = bundle.getString("type", "");
             String title = bundle.getString("title", "");
             tvTitle.setText(title);
-            if (type.equals("picNews")) {//代表图片新闻详情
+//            if (type.equals("picNews")) {//代表图片新闻详情
+//                path = "/mobile/picnewsdetail.do?id="+ id;
+//            }else if (type.equals("notice")) {//代表通知通报详情
+//                path = "/mobile/noticedetail.do?id="+ id;
+//            }else if (type.equals("msg")) {
+//                path = "/mobile/msgdetail.do?id="+ id;
+//            }
+            if (type.equals("2")) {//代表图片新闻详情
                 path = "/mobile/picnewsdetail.do?id="+ id;
-            }else if (type.equals("notice")) {//代表通知通报详情
+            }else if (type.equals("1")) {//代表通知通报详情
                 path = "/mobile/noticedetail.do?id="+ id;
-            }else if (type.equals("msg")) {
+            }else if (type.equals("0")) {
                 path = "/mobile/msgdetail.do?id="+ id;
             }
-            Log.e("gaj",path+"");
         }
 
         WebSettings settings = webView.getSettings();
@@ -100,7 +108,6 @@ public class NewsDetailActivity extends AppCompatActivity {
                 progressBar.setProgress(newProgress);
                 if (newProgress == 100) {
                     progressBar.setVisibility(View.GONE);
-                    toolBar.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -117,7 +124,7 @@ public class NewsDetailActivity extends AppCompatActivity {
             }
         };
         webView.setWebViewClient(wvc);
-        webView.loadUrl(AppConfig.rootPath + path);
+        webView.loadUrl(BuildConfig.SERVER_IP + path);
     }
 
     @Override

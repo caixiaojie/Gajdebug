@@ -19,7 +19,11 @@ import android.widget.Toast;
 import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
+import com.fskj.gaj.Util.DateTime;
 import com.fskj.gaj.request.DutyRequest;
+import com.fskj.gaj.view.BusyView;
+import com.fskj.gaj.view.MessageConfirmDialog;
+import com.fskj.gaj.view.NoDataView;
 import com.fskj.gaj.vo.DutyResultVo;
 
 import java.util.ArrayList;
@@ -33,6 +37,8 @@ public class DutyFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private DutyRequest dutyRequest;
+    private NoDataView noDataView;
+    private BusyView busyView;
 
     public static DutyFragment getInstance( ){
         DutyFragment f =new DutyFragment();
@@ -68,6 +74,8 @@ public class DutyFragment extends Fragment {
 
 //界面初始化
         View v=inflater.inflate(R.layout.fragment_duty, null);
+        noDataView = (NoDataView) v.findViewById(R.id.no_data);
+        noDataView.setVisibility(View.GONE);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
@@ -77,6 +85,8 @@ public class DutyFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 //初始化控件事件
         initWidgetEvent();
+        busyView = BusyView.showQuery(activity);
+        dutyRequest.setDate(DateTime.getCurrentFormatTime());
         dutyRequest.send();
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
@@ -87,15 +97,25 @@ public class DutyFragment extends Fragment {
         dutyRequest = new DutyRequest(activity, "", new ResultListInterface<DutyResultVo>() {
             @Override
             public void success(ResultTVO<DutyResultVo> data) {
+                busyView.dismiss();
                 ArrayList<DutyResultVo> dutyResultVos = data.getData();
+                dutyList.clear();
                 if (dutyResultVos != null && dutyResultVos.size() > 0) {
                     dutyList.addAll(dutyResultVos);
                 }
                 adapter.notifyDataSetChanged();
+                if (dutyList.size() > 0) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    noDataView.setVisibility(View.GONE);
+                }else {
+                    recyclerView.setVisibility(View.GONE);
+                    noDataView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void error(String errmsg) {
+                busyView.dismiss();
                 Toast.makeText(activity,errmsg,Toast.LENGTH_SHORT).show();
             }
         });
@@ -113,6 +133,7 @@ public class DutyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -141,11 +162,22 @@ public class DutyFragment extends Fragment {
             holder.imgCall.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:"+dutyList.get(position).getPhone()));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    MessageConfirmDialog.show(activity, "提示", "是否拨打" + dutyList.get(position).getName() + "的电话?", "取消", "确认", new MessageConfirmDialog.OnConfirmClickListener() {
+                        @Override
+                        public void onLeft() {
+
+                        }
+
+                        @Override
+                        public void onRight() {
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse("tel:"+dutyList.get(position).getPhone()));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    },true);
+
                 }
             });
         }
