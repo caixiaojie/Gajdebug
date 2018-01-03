@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/main_background"
+    android:background="@mipmap/img_login_bg"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context="com.fskj.gaj.login.LoginActivity">
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="300dp">
         <ImageView
@@ -29,30 +30,35 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <EditText
+        android:drawablePadding="10dp"
+        android:drawableLeft="@mipmap/img_user"
+        android:layout_marginTop="300dp"
         android:layout_gravity="center_horizontal"
         android:paddingLeft="10dp"
         android:id="@+id/et_name"
         android:background="@drawable/shape_edit_text"
         android:textSize="14dp"
-        android:textColor="#333"
+        android:textColor="#fff"
         android:gravity="center_vertical"
         android:hint="请输入账号"
-        android:textColorHint="#999"
+        android:textColorHint="#ccc"
         android:singleLine="true"
         android:layout_width="315dp"
         android:layout_height="40dp" />
     <EditText
+        android:drawableLeft="@mipmap/img_pwd"
+        android:drawablePadding="10dp"
         android:inputType="textPassword"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:paddingLeft="10dp"
         android:id="@+id/et_pwd"
         android:background="@drawable/shape_edit_text"
         android:textSize="14dp"
-        android:textColor="#333"
+        android:textColor="#fff"
         android:gravity="center_vertical"
         android:hint="请输入密码"
-        android:textColorHint="#999"
+        android:textColorHint="#ccc"
         android:singleLine="true"
         android:layout_width="315dp"
         android:layout_height="40dp" />
@@ -62,7 +68,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:id="@+id/llLogin"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="315dp"
         android:layout_height="43dp">

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fskj.gaj.LoginInfo;
+import com.fskj.gaj.MainActivity;
 import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultObjInterface;
 import com.fskj.gaj.Remote.ResultVO;
@@ -119,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginInfo.saveLoginResultVo(activity,resultVo);
 
                 Toast.makeText(activity,"登录成功",Toast.LENGTH_SHORT).show();
+                MainActivity.gotoActivity(activity);
                 finish();
             }
 

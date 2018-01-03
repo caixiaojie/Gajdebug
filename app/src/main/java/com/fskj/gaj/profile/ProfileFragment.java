@@ -25,8 +25,10 @@ import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultObjInterface;
 import com.fskj.gaj.Remote.ResultVO;
 import com.fskj.gaj.home.HomeFragment;
+import com.fskj.gaj.login.LoginActivity;
 import com.fskj.gaj.request.AttentionToZeroRequest;
 import com.fskj.gaj.request.MyAttentionCountRequest;
+import com.fskj.gaj.view.ExitLoginDialog;
 import com.fskj.gaj.view.MessageConfirmDialog;
 import com.fskj.gaj.vo.LoginCommitVo;
 import com.fskj.gaj.vo.LoginResultVo;
@@ -165,7 +167,7 @@ public class ProfileFragment extends Fragment {
         tvExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MessageConfirmDialog.show(activity, "提示", "确认退出当前账号吗?", "取消", "确认", new MessageConfirmDialog.OnConfirmClickListener() {
+                ExitLoginDialog.show(activity,"退出当前账号?", "取消", "确认", new ExitLoginDialog.OnConfirmClickListener() {
                     @Override
                     public void onLeft() {
 
@@ -174,7 +176,7 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onRight() {
                         LoginInfo.exitLogin(activity);
-                        MainActivity.gotoActivity(ProfileFragment.this);
+                        LoginActivity.gotoActivity(ProfileFragment.this);
                     }
                 },true);
 
