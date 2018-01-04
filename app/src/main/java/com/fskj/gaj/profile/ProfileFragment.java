@@ -205,14 +205,23 @@ public class ProfileFragment extends Fragment {
         llCheckArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArticleModuleActivity.gotoActivity(ProfileFragment.this);
+                if (LoginInfo.getIChecker(activity) == 1) {
+                    ArticleModuleActivity.gotoActivity(ProfileFragment.this);
+                }else {
+                    Toast.makeText(activity,"权限不足",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         //值班人员维护
         llWeiHu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DutyListActivity.gotoActivity(ProfileFragment.this);
+                //// TODO: 2018/1/4 0004
+                if (LoginInfo.getIduty(activity) == 1) {
+                    DutyListActivity.gotoActivity(ProfileFragment.this);
+                }else {
+                    Toast.makeText(activity,"权限不足",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         //我的关注

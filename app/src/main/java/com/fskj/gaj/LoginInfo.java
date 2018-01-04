@@ -51,6 +51,20 @@ public class LoginInfo {
         return duty;
     }
 
+
+    public static void saveIChecker(Context context,int checker) {
+        SharedPreferences sp = Tools.getSharePreferences(context, SIGN_INFO);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putInt("checker",checker);
+        edit.commit();
+    }
+
+    public static int getIChecker(Context context) {
+        SharedPreferences sp = Tools.getSharePreferences(context, SIGN_INFO);
+        int duty = sp.getInt("checker", 0);
+        return duty;
+    }
+
     public static void saveLoginCommitInfo(Context context, LoginCommitVo vo) {
         if (vo == null) {
             return;

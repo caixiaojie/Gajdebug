@@ -10,12 +10,22 @@ public class LoginResultVo {
     /**
      * pubnotice : [{"name":"模块名称","type":"模块英文"},{"name":"模块名称","type":"模块英文"}]
      * duty : 1
+     * checker:1
      */
 
     private int duty;
+    private int checker;
     private List<PubnoticeVo> pubnotice;
     private String username;
     private String department;
+
+    public int getChecker() {
+        return checker;
+    }
+
+    public void setChecker(int checker) {
+        this.checker = checker;
+    }
 
     public String getUsername() {
         return username;

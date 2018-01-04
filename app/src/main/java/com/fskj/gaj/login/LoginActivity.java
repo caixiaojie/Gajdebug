@@ -35,14 +35,16 @@ public class LoginActivity extends AppCompatActivity {
 
     public static void gotoActivity(Activity activity ){
         Intent intent=new Intent(activity,LoginActivity.class);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.slide_right_in,R.anim.slide_left_out);
     }
 
     public static void gotoActivity(Fragment fr ){
         Intent intent=new Intent(fr.getActivity(),LoginActivity.class);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
         fr.startActivity(intent);
         fr.getActivity().overridePendingTransition(R.anim.slide_right_in,R.anim.slide_left_out);
     }
@@ -62,8 +64,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         activity=LoginActivity.this;
+        //已登录直接跳主页
+        if (LoginInfo.getLoginState(activity)) {
+            MainActivity.gotoActivity(activity);
+        }
+
+        setContentView(R.layout.activity_login);
         StatusBarUtil.setFullSreen(activity);
         inflater = LayoutInflater.from(activity);
 
@@ -110,11 +117,13 @@ public class LoginActivity extends AppCompatActivity {
                 LoginResultVo resultVo = data.getData();
                 List<PubnoticeVo> pubnoticeVoList = resultVo.getPubnotice();
                 int duty = resultVo.getDuty();
+                int checker = resultVo.getChecker();
                 //登录成功
                 if (pubnoticeVoList != null && pubnoticeVoList.size() > 0) {
                     LoginInfo.savePubNoticeInfo(activity,pubnoticeVoList);
                 }
                 LoginInfo.saveIDuty(activity,duty);
+                LoginInfo.saveIChecker(activity,checker);
                 LoginInfo.saveLoginState(activity,true);
                 LoginInfo.saveLoginCommitInfo(activity,loginCommitVo);
                 LoginInfo.saveLoginResultVo(activity,resultVo);
