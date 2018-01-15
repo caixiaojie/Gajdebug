@@ -49,7 +49,9 @@
             </LinearLayout>
 
         </FrameLayout>
+        <!--公示公告-->
         <FrameLayout
+            android:visibility="gone"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
@@ -74,6 +76,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+        </FrameLayout>
+        <!--关注-->
+        <FrameLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:id="@+id/llMenuAttention"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_attention"
+                    android:src="@mipmap/img_menu_notice_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_attention"
+                    android:text="我的关注"
+                    android:textSize="10dp"
+                    android:textColor="@color/txt_menu_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="right"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="99"
+                android:visibility="invisible"
+                android:background="@drawable/txt_circle_shape"
+                android:textSize="8dp"
+                android:id="@+id/tv_count"
+                android:minWidth="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp" />
         </FrameLayout>
         <FrameLayout
             android:layout_weight="1"

@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment {
 
                 //第一项是不变的
                 enTitleList.add(0,"");
-                zhTitleList.add(0,"推荐");
+                zhTitleList.add(0,"图片新闻");
                 RecommandFragment.getInstance(0).setTabPos(0);
                 fragmentList.add(0, RecommandFragment.getInstance(0));
 

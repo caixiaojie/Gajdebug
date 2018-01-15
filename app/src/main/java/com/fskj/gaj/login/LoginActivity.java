@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginInfo.saveLoginCommitInfo(activity,loginCommitVo);
                 LoginInfo.saveLoginResultVo(activity,resultVo);
 
-                Toast.makeText(activity,"登录成功",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(activity,"登录成功",Toast.LENGTH_SHORT).show();
                 MainActivity.gotoActivity(activity);
                 finish();
             }

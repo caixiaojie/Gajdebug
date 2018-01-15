@@ -43,8 +43,8 @@ public class MyCareActivity extends AppCompatActivity {
     private BusyView busyView;
     private LoginCommitVo loginCommitVo;
     private List<MyAttentionResultVo> attentionList = new ArrayList<>();
-    private List<Fragment> fragmentList = new ArrayList<>();
     private HomePagerAdapter homePagerAdapter;
+    private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> zhTitleList = new ArrayList<>();
     private int curTab = 0;
 

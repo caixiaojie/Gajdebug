@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
 
     private TextView tvUserName;
     private TextView tvDepartment;
-    private LinearLayout llGuanzhu;
+//    private LinearLayout llGuanzhu;
     private LoginCommitVo loginCommitVo;
     private MyAttentionCountRequest myAttentionCountRequest;
     private TextView tvCount;
@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout llPub;
     private LinearLayout llCheckArticle;
     private LinearLayout llWeiHu;
-    private MyBroadcast myBroadcast = new MyBroadcast();
+//    private MyBroadcast myBroadcast = new MyBroadcast();
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -102,14 +102,14 @@ public class ProfileFragment extends Fragment {
         llPub=(LinearLayout)v.findViewById(R.id.llPub);
         llCheckArticle=(LinearLayout)v.findViewById(R.id.llCheckArticle);
         llWeiHu=(LinearLayout)v.findViewById(R.id.llWeiHu);
-        llGuanzhu =(LinearLayout)v.findViewById(R.id.llGuanzhu);
+//        llGuanzhu =(LinearLayout)v.findViewById(R.id.llGuanzhu);
 
-        setNumber(strCount);
+//        setNumber(strCount);
 
-        //注册广播
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("myBroadcast");
-        activity.registerReceiver(myBroadcast,filter);
+//        //注册广播
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("myBroadcast");
+//        activity.registerReceiver(myBroadcast,filter);
 
 //声明请求变量和返回结果
         initRequest();
@@ -123,7 +123,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        activity.unregisterReceiver(myBroadcast);
+//        activity.unregisterReceiver(myBroadcast);
     }
 
     /**
@@ -224,16 +224,16 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-        //我的关注
-        llGuanzhu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tvCount.setVisibility(View.INVISIBLE);
-                ((MainActivity)activity).hidePoint();
-                attentionToZeroRequest.send();
-                MyCareActivity.gotoActivity(ProfileFragment.this);
-            }
-        });
+//        //我的关注
+//        llGuanzhu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                tvCount.setVisibility(View.INVISIBLE);
+//                ((MainActivity)activity).hidePoint();
+//                attentionToZeroRequest.send();
+//                MyCareActivity.gotoActivity(ProfileFragment.this);
+//            }
+//        });
     }
 
     private void showMsg(String msg) {

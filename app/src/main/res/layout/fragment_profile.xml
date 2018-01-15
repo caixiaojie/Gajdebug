@@ -164,6 +164,7 @@
         android:layout_height="1dp"/>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_marginTop="20dp"
         android:background="@drawable/ll_selector"
         android:id="@+id/llGuanzhu"
@@ -198,11 +199,13 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <View
+        android:visibility="gone"
         android:background="@color/main_background"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <!--修改密码-->
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:background="@drawable/ll_selector"
         android:id="@+id/llChangePwd"
         android:gravity="center_vertical"

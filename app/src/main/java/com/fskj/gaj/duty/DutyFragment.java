@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -77,6 +78,7 @@ public class DutyFragment extends Fragment {
         noDataView = (NoDataView) v.findViewById(R.id.no_data);
         noDataView.setVisibility(View.GONE);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 //声明请求变量和返回结果
@@ -88,6 +90,13 @@ public class DutyFragment extends Fragment {
         busyView = BusyView.showQuery(activity);
         dutyRequest.setDate(DateTime.getCurrentFormatTime());
         dutyRequest.send();
+        v. findViewById(R.id.btn_tongxunlu).setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+                TongxunluActivity.gotoActivity(activity);
+          }
+      });
+
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT));
         return v;
     }

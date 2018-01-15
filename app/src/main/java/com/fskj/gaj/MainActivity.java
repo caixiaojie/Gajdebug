@@ -33,18 +33,21 @@ import com.fskj.gaj.Remote.ResultVO;
 import com.fskj.gaj.Util.DownFile;
 import com.fskj.gaj.Util.StatusBarUtil;
 import com.fskj.gaj.Util.Tools;
+import com.fskj.gaj.attention.AttentionFragment;
 import com.fskj.gaj.duty.DutyFragment;
 import com.fskj.gaj.home.HomeFragment;
 import com.fskj.gaj.login.LoginActivity;
 import com.fskj.gaj.notice.NoticeFragment;
 import com.fskj.gaj.profile.ProfileFragment;
 import com.fskj.gaj.receiver.MyBroadcastReceiver;
+import com.fskj.gaj.request.AttentionToZeroRequest;
 import com.fskj.gaj.request.GetAppVersionCode;
 import com.fskj.gaj.service.MyService;
 import com.fskj.gaj.system.RoomFragment;
 import com.fskj.gaj.view.BusyView;
 import com.fskj.gaj.view.MessageConfirmDialog;
 import com.fskj.gaj.vo.GetAppVersionCommitVo;
+import com.fskj.gaj.vo.LoginCommitVo;
 
 import java.io.File;
 import java.util.Timer;
@@ -54,11 +57,17 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
 
-    private TextView tvCircle;
+//    private TextView tvCircle;
     private String strCount;
     private GetAppVersionCommitVo getAppVersionCommitVo;
     private GetAppVersionCode getAppVersionCode;
     private ProgressDialog pd;
+    private LinearLayout llMenuAttention;
+    private ImageView imgAttention;
+    private TextView tvAttention;
+    private TextView tvCount;
+    private LoginCommitVo loginCommitVo;
+    private AttentionToZeroRequest attentionToZeroRequest;
 
     public static void gotoActivity(Activity activity ){
         Intent intent=new Intent(activity,MainActivity.class);
@@ -78,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout llMenuHome;
     private ImageView imgHome;
     private TextView tvHomePage;
-    private LinearLayout llMenuNotice;
-    private ImageView imgNotice;
-    private TextView tvNotice;
+//    private LinearLayout llMenuNotice;
+//    private ImageView imgNotice;
+//    private TextView tvNotice;
     private LinearLayout llMenuDuty;
     private ImageView imgDuty;
     private TextView tvDuty;
@@ -95,9 +104,11 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fm;
 
     HomeFragment homeFragment ;
-    NoticeFragment noticeFragment ;
+//    NoticeFragment noticeFragment ;
+    AttentionFragment attentionFragment;
     DutyFragment dutyFragment ;
     ProfileFragment profileFragment ;
+
     private BusyView busyView;
 
     private MyBroadcast myBroadcast = new MyBroadcast();
@@ -117,16 +128,20 @@ public class MainActivity extends AppCompatActivity {
         llMenuHome=(LinearLayout)findViewById(R.id.llMenuHome);
         imgHome=(ImageView)findViewById(R.id.img_home);
         tvHomePage=(TextView)findViewById(R.id.tv_home_page);
-        llMenuNotice=(LinearLayout)findViewById(R.id.llMenuNotice);
-        imgNotice=(ImageView)findViewById(R.id.img_notice);
-        tvNotice=(TextView)findViewById(R.id.tv_notice);
+//        llMenuNotice=(LinearLayout)findViewById(R.id.llMenuNotice);
+//        imgNotice=(ImageView)findViewById(R.id.img_notice);
+//        tvNotice=(TextView)findViewById(R.id.tv_notice);
+        llMenuAttention =(LinearLayout)findViewById(R.id.llMenuAttention);
+        imgAttention =(ImageView)findViewById(R.id.img_attention);
+        tvAttention =(TextView)findViewById(R.id.tv_attention);
         llMenuDuty=(LinearLayout)findViewById(R.id.llMenuDuty);
         imgDuty=(ImageView)findViewById(R.id.img_duty);
         tvDuty=(TextView)findViewById(R.id.tv_duty);
         llMenuRoom=(LinearLayout)findViewById(R.id.llMenuRoom);
         imgRoom=(ImageView)findViewById(R.id.img_room);
         tvRoom=(TextView)findViewById(R.id.tv_room);
-        tvCircle =(TextView)findViewById(R.id.tv_circle);
+//        tvCircle =(TextView)findViewById(R.id.tv_circle);
+        tvCount =(TextView)findViewById(R.id.tv_count);
 //声明请求变量和返回结果
         initRequest();
 //初始化控件事件
@@ -171,12 +186,14 @@ public class MainActivity extends AppCompatActivity {
             switch (p) {
                 case 0:
                     tvHomePage.setTextColor(getResources().getColor(R.color.main_color));
-                    tvNotice.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+//                    tvNotice.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+                    tvAttention.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                     tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                     tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
 
                     imgHome.setImageResource(R.mipmap.img_menu_home_on);
-                    imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
+//                    imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
+                    imgAttention.setImageResource(R.mipmap.img_menu_notice_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
                 lastpos = p;
@@ -194,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commit();
 
                     break;
-                case 1:
+               /* case 1:
 
                     tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                     tvNotice.setTextColor(getResources().getColor(R.color.main_color));
@@ -219,16 +236,44 @@ public class MainActivity extends AppCompatActivity {
 //                    transaction.replace(R.id.real_layout,noticeFragment);
                     transaction.commit();
                 lastpos = p;
+                    break;*/
+                case 1:
+
+                    tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+//                    tvNotice.setTextColor(getResources().getColor(R.color.main_color));
+                    tvAttention.setTextColor(getResources().getColor(R.color.main_color));
+                    tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+                    tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+
+                    imgHome.setImageResource(R.mipmap.img_menu_home_off);
+//                    imgNotice.setImageResource(R.mipmap.img_menu_notice_on);
+                    imgAttention.setImageResource(R.mipmap.img_menu_notice_on);
+                    imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
+                    imgRoom.setImageResource(R.mipmap.img_profile_off);
+
+                    if (attentionFragment == null) {
+                        attentionFragment = AttentionFragment.getInstance();
+                        transaction.add(R.id.real_layout,attentionFragment);
+                    }
+                    //隐藏所有fragment
+                    hideFragment(transaction);
+                    //显示需要显示的fragment
+                    transaction.show(attentionFragment);
+
+//                    NoticeFragment noticeFragment = NoticeFragment.getInstance();
+//                    transaction.replace(R.id.real_layout,noticeFragment);
+                    transaction.commit();
+                    lastpos = p;
                     break;
                 case 2:
 
                     tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-                    tvNotice.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+                    tvAttention.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                     tvDuty.setTextColor(getResources().getColor(R.color.main_color));
                     tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
 
                     imgHome.setImageResource(R.mipmap.img_menu_home_off);
-                    imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
+                    imgAttention.setImageResource(R.mipmap.img_menu_notice_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_on);
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
 
@@ -250,12 +295,12 @@ public class MainActivity extends AppCompatActivity {
                     //拦截个人中心
                     if (LoginInfo.getLoginState(activity)) {
                         tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-                        tvNotice.setTextColor(getResources().getColor(R.color.txt_menu_gray));
+                        tvAttention.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                         tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                         tvRoom.setTextColor(getResources().getColor(R.color.main_color));
 
                         imgHome.setImageResource(R.mipmap.img_menu_home_off);
-                        imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
+                        imgAttention.setImageResource(R.mipmap.img_menu_notice_off);
                         imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
                         imgRoom.setImageResource(R.mipmap.img_profile_on);
 
@@ -282,8 +327,11 @@ public class MainActivity extends AppCompatActivity {
         if(homeFragment != null){
             transaction.hide(homeFragment);
         }
-        if(noticeFragment != null){
-            transaction.hide(noticeFragment);
+//        if(noticeFragment != null){
+//            transaction.hide(noticeFragment);
+//        }
+        if(attentionFragment != null){
+            transaction.hide(attentionFragment);
         }
         if(dutyFragment != null){
             transaction.remove(dutyFragment);
@@ -307,6 +355,26 @@ public class MainActivity extends AppCompatActivity {
     }
     //声明请求变量和返回结果
     private void initRequest(){
+        LoginCommitVo loginInfo = LoginInfo.getLoginCommitInfo(activity);
+        loginCommitVo = new LoginCommitVo();
+        if (loginInfo != null) {
+            loginCommitVo.setUsername(loginInfo.getUsername());
+            loginCommitVo.setPassword(loginInfo.getPassword());
+        }
+
+        //数量清0
+
+        attentionToZeroRequest = new AttentionToZeroRequest(activity, loginCommitVo, new ResultObjInterface<String>() {
+            @Override
+            public void success(ResultVO<String> data) {
+            }
+
+            @Override
+            public void error(String errmsg) {
+            }
+        });
+
+
         getAppVersionCommitVo = new GetAppVersionCommitVo();
         getAppVersionCommitVo.setVid(""+Tools.getVersionCode(activity));
         getAppVersionCode = new GetAppVersionCode(activity, getAppVersionCommitVo, new ResultObjInterface<String>() {
@@ -382,11 +450,20 @@ public class MainActivity extends AppCompatActivity {
                 setSelected(0);
             }
         });
-        //点击通知公告
-        llMenuNotice.setOnClickListener(new OnClickListener() {
+//        //点击通知公告
+//        llMenuNotice.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                setSelected(1);
+//            }
+//        });
+        //点击我的关注
+        llMenuAttention.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                hidePoint();
                 setSelected(1);
+                attentionToZeroRequest.send();
             }
         });
         //点击今日值班
@@ -466,16 +543,20 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             String count = (String) msg.obj;
-            strCount = count;
+//            strCount = count;
             if (count != null && !"".equals(count) && !count.equals("0")) {
-                tvCircle.setVisibility(View.VISIBLE);
+//                tvCircle.setVisibility(View.VISIBLE);
+                tvCount.setVisibility(View.VISIBLE);
+                tvCount.setText(count);
             }else {
-                tvCircle.setVisibility(View.INVISIBLE);
+//                tvCircle.setVisibility(View.INVISIBLE);
+                tvCount.setVisibility(View.INVISIBLE);
             }
         }
     };
 
     public void hidePoint() {
-        tvCircle.setVisibility(View.INVISIBLE);
+//        tvCircle.setVisibility(View.INVISIBLE);
+        tvCount.setVisibility(View.INVISIBLE);
     }
 }
