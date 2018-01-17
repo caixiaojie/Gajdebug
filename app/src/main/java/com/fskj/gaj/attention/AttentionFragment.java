@@ -2,12 +2,17 @@ package com.fskj.gaj.attention;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +28,7 @@ import com.fskj.gaj.home.adapter.HomePagerAdapter;
 import com.fskj.gaj.home.fragment.Common2Fragment;
 import com.fskj.gaj.home.fragment.CommonFragment;
 import com.fskj.gaj.home.fragment.RecommandFragment;
+import com.fskj.gaj.profile.CareSetActivity;
 import com.fskj.gaj.request.MyAttentionRequest;
 import com.fskj.gaj.view.BusyView;
 import com.fskj.gaj.view.NoDataView;
@@ -63,6 +69,7 @@ public class AttentionFragment extends Fragment {
     private Toolbar toolBar;
     private TextView tvSet;
     private NoDataView noDataView;
+    int j = 0;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -75,6 +82,54 @@ public class AttentionFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.intent.action.CART_BROADCAST");
+        BroadcastReceiver mItemViewListClickReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent){
+                String msg = intent.getStringExtra("data");
+                if("refresh".equals(msg)){
+                    refresh();
+                }
+            }
+        };
+        broadcastManager.registerReceiver(mItemViewListClickReceiver, intentFilter);
+    }
+
+    private void refresh() {
+        attentionList.clear();
+        zhTitleList.clear();
+        fragmentList.clear();
+
+        homePagerAdapter = new HomePagerAdapter(getChildFragmentManager(),fragmentList,zhTitleList);
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.setAdapter(homePagerAdapter);
+        viewPager.setCurrentItem(curTab);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment fragment = homePagerAdapter.getItem(position);
+                if (fragment instanceof CommonFragment) {
+                    ((CommonFragment) fragment).sendMessage();
+                }else if (fragment instanceof Common2Fragment) {
+                    ((Common2Fragment) fragment).sendMessage();
+                }else if (fragment instanceof RecommandFragment){
+                    ((RecommandFragment) fragment).sendMessage();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        myAttentionRequest.send();
     }
 
     @Override
@@ -132,7 +187,7 @@ public class AttentionFragment extends Fragment {
                 if (attentionList.size() > 0) {
                     for (int i = 0; i < attentionList.size(); i++) {
                         MyAttentionResultVo vo = attentionList.get(i);
-                        int j = 0;
+
                         if (vo.getAttention() == 1) {
                             zhTitleList.add(vo.getZh());
                             Fragment ff;
@@ -169,7 +224,36 @@ public class AttentionFragment extends Fragment {
 
     //初始化控件事件
     private void initWidgetEvent(){
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment fragment = homePagerAdapter.getItem(position);
+                if (fragment instanceof  CommonFragment) {
+                    ((CommonFragment) fragment).sendMessage();
+                }else if (fragment instanceof  Common2Fragment) {
+                    ((Common2Fragment) fragment).sendMessage();
+                }else if (fragment instanceof  RecommandFragment){
+                    ((RecommandFragment) fragment).sendMessage();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        //关注设置
+        tvSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CareSetActivity.gotoActivity(AttentionFragment.this);
+            }
+        });
     }
 
     private void showMsg(String msg) {
@@ -180,43 +264,12 @@ public class AttentionFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode== Activity.RESULT_OK){
-            attentionList.clear();
-            zhTitleList.clear();
-            fragmentList.clear();
+            Log.e("====","------");
 
-            homePagerAdapter = new HomePagerAdapter(getChildFragmentManager(),fragmentList,zhTitleList);
-            tabLayout.setupWithViewPager(viewPager);
-            viewPager.setAdapter(homePagerAdapter);
-            viewPager.setCurrentItem(curTab);
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    Fragment fragment = homePagerAdapter.getItem(position);
-                    if (fragment instanceof CommonFragment) {
-                        ((CommonFragment) fragment).sendMessage();
-                    }else if (fragment instanceof Common2Fragment) {
-                        ((Common2Fragment) fragment).sendMessage();
-                    }else if (fragment instanceof RecommandFragment){
-                        ((RecommandFragment) fragment).sendMessage();
-                    }
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-            myAttentionRequest.send();
         }
     }
 

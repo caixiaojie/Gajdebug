@@ -25,7 +25,7 @@ import com.fskj.gaj.home.DailyPoliceWebActivity;
 public class TongxunluActivity extends AppCompatActivity {
 
     public static void gotoActivity(Activity activity ){
-        Intent intent=new Intent(activity,DailyPoliceWebActivity.class);
+        Intent intent=new Intent(activity,TongxunluActivity.class);
 
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.slide_right_in,R.anim.slide_left_out);
@@ -45,7 +45,15 @@ public class TongxunluActivity extends AppCompatActivity {
 
 
 //界面初始化
+        TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvTitle.setText("机关通讯录");
         imgBack=(ImageView)findViewById(R.id.img_back);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         webView=(WebView)findViewById(R.id.webView);
 //声明请求变量和返回结果
@@ -70,7 +78,7 @@ public class TongxunluActivity extends AppCompatActivity {
                 return true;
             }
         };
-        String url = "";
+        String url = "http://10.155.20.78/other/jbtxl.mht";
         webView.setWebViewClient(wvc);
         webView.loadUrl(url);
     }
@@ -90,13 +98,7 @@ public class TongxunluActivity extends AppCompatActivity {
 
     //初始化控件事件
     private void initWidgetEvent(){
-        //返回
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
     }
 
     private void showMsg(String msg) {

@@ -3,6 +3,7 @@ package com.fskj.gaj.profile;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -61,6 +62,12 @@ public class CareSetActivity extends AppCompatActivity implements CallBack {
         activity.overridePendingTransition(R.anim.slide_right_in,R.anim.slide_left_out);
     }
 
+    public static void gotoActivity(Fragment fr ){
+        Intent intent=new Intent(fr.getActivity(),CareSetActivity.class);
+
+        fr.getActivity().startActivityForResult(intent, AppConfig.CARE_SET);
+        fr.getActivity().overridePendingTransition(R.anim.slide_right_in,R.anim.slide_left_out);
+    }
 
 
     @Override
@@ -166,6 +173,13 @@ public class CareSetActivity extends AppCompatActivity implements CallBack {
                 busyView.dismiss();
                 vo.turn();
                 CareSetActivity.this.setResult(RESULT_OK);
+
+                //发送广播
+                Intent intent = new Intent("android.intent.action.CART_BROADCAST");
+                intent.putExtra("data","refresh");
+                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+                sendBroadcast(intent);
+
                 imgCare.setImageResource(R.mipmap.img_share_on);
 //                adapter.notifyDataSetChanged();
             }
@@ -185,6 +199,12 @@ public class CareSetActivity extends AppCompatActivity implements CallBack {
                 busyView.dismiss();
                 vo.turn();
                 CareSetActivity.this.setResult(RESULT_OK);
+                //发送广播
+                Intent intent = new Intent("android.intent.action.CART_BROADCAST");
+                intent.putExtra("data","refresh");
+                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+                sendBroadcast(intent);
+
                 imgCare.setImageResource(R.mipmap.img_share_off);
             }
 

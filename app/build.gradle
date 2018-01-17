@@ -17,9 +17,9 @@ android {
             debuggable true
             minifyEnabled false
 
-            buildConfigField("String", "SERVER_IP", "\"http://192.168.0.139:8080/gaj\"")
+            buildConfigField("String", "SERVER_IP", "\"http://192.168.0.131:8080/gaj\"")
             buildConfigField("String", "SERVER_IP1", "\"http://linux.fushoukeji.com/jlzh\"")
-            buildConfigField("String", "PIC_PATH", "\"http://192.168.0.139:8080\"")
+            buildConfigField("String", "PIC_PATH", "\"http://192.168.0.131:8080\"")
 
 
         }
