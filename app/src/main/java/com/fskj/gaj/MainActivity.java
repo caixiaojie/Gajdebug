@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
 
                     imgHome.setImageResource(R.mipmap.img_menu_home_on);
-                    imgAttention.setImageResource(R.mipmap.img_menu_notice_off);
+                    imgAttention.setImageResource(R.mipmap.img_attetntion_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
                 lastpos = p;
@@ -217,8 +217,7 @@ public class MainActivity extends AppCompatActivity {
                     tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
 
                     imgHome.setImageResource(R.mipmap.img_menu_home_off);
-//                    imgNotice.setImageResource(R.mipmap.img_menu_notice_on);
-                    imgAttention.setImageResource(R.mipmap.img_menu_notice_on);
+                    imgAttention.setImageResource(R.mipmap.img_attention_on);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
 
@@ -241,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                     tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
 
                     imgHome.setImageResource(R.mipmap.img_menu_home_off);
-                    imgAttention.setImageResource(R.mipmap.img_menu_notice_off);
+                    imgAttention.setImageResource(R.mipmap.img_attetntion_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_on);
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
 
@@ -267,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                         tvRoom.setTextColor(getResources().getColor(R.color.main_color));
 
                         imgHome.setImageResource(R.mipmap.img_menu_home_off);
-                        imgAttention.setImageResource(R.mipmap.img_menu_notice_off);
+                        imgAttention.setImageResource(R.mipmap.img_attetntion_off);
                         imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
                         imgRoom.setImageResource(R.mipmap.img_profile_on);
 

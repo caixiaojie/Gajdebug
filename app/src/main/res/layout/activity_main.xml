@@ -18,167 +18,187 @@
         android:background="#ccc"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"></LinearLayout>
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <FrameLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
             <LinearLayout
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
                 android:id="@+id/llMenuHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
                 <ImageView
                     android:id="@+id/img_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/img_menu_home_on"/>
+                    android:src="@mipmap/img_menu_home_on" />
+
                 <TextView
                     android:id="@+id/tv_home_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="首页"
                     android:textColor="#1665e9"
-                    android:textSize="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="10dp" />
             </LinearLayout>
 
         </FrameLayout>
         <!--公示公告-->
         <FrameLayout
-            android:visibility="gone"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone">
+
             <LinearLayout
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
                 android:id="@+id/llMenuNotice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
                 <ImageView
                     android:id="@+id/img_notice"
-                    android:src="@mipmap/img_menu_notice_off"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/img_menu_notice_off" />
+
                 <TextView
                     android:id="@+id/tv_notice"
-                    android:text="公示公告"
-                    android:textSize="10dp"
-                    android:textColor="@color/txt_menu_gray"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="公示公告"
+                    android:textColor="@color/txt_menu_gray"
+                    android:textSize="10dp" />
             </LinearLayout>
         </FrameLayout>
         <!--关注-->
         <FrameLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
             <LinearLayout
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
                 android:id="@+id/llMenuAttention"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
                 <ImageView
                     android:id="@+id/img_attention"
-                    android:src="@mipmap/img_menu_notice_off"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/img_attetntion_off" />
+
                 <TextView
                     android:id="@+id/tv_attention"
-                    android:text="我的关注"
-                    android:textSize="10dp"
-                    android:textColor="@color/txt_menu_gray"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="我的关注"
+                    android:textColor="@color/txt_menu_gray"
+                    android:textSize="10dp" />
             </LinearLayout>
+
             <TextView
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:layout_gravity="right"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:text="99"
-                android:visibility="invisible"
-                android:background="@drawable/txt_circle_shape"
-                android:textSize="8dp"
                 android:id="@+id/tv_count"
-                android:minWidth="14dp"
                 android:layout_width="wrap_content"
-                android:layout_height="14dp" />
+                android:layout_height="14dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/txt_circle_shape"
+                android:gravity="center"
+                android:minWidth="14dp"
+                android:text="99"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                android:visibility="invisible" />
         </FrameLayout>
+
         <FrameLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
             <LinearLayout
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
                 android:id="@+id/llMenuDuty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
                 <ImageView
                     android:id="@+id/img_duty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/img_menu_duty_off"/>
+                    android:src="@mipmap/img_menu_duty_off" />
+
                 <TextView
                     android:id="@+id/tv_duty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="今日值班"
                     android:textColor="@color/txt_menu_gray"
-                    android:textSize="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="10dp" />
             </LinearLayout>
         </FrameLayout>
         <!--个人中心-->
         <FrameLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
             <LinearLayout
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
                 android:id="@+id/llMenuRoom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
                 <ImageView
                     android:id="@+id/img_room"
-                    android:src="@mipmap/img_profile_off"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/img_profile_off" />
+
                 <TextView
                     android:id="@+id/tv_room"
-                    android:text="个人中心"
-                    android:textSize="10dp"
-                    android:textColor="@color/txt_menu_gray"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="个人中心"
+                    android:textColor="@color/txt_menu_gray"
+                    android:textSize="10dp" />
             </LinearLayout>
+
             <TextView
-                android:visibility="invisible"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle_point_shape"
                 android:id="@+id/tv_circle"
                 android:layout_width="4dp"
-                android:layout_height="4dp" />
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/circle_point_shape"
+                android:visibility="invisible" />
         </FrameLayout>
 
     </LinearLayout>
