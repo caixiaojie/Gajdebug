@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:gravity="center"

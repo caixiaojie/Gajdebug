@@ -88,17 +88,12 @@ public class DownFile {
                         throw new Exception("fail!");
                     }
                     is = httpConnection.getInputStream();
-                    long total=is.available();
                     fos = new FileOutputStream(updateFile, false);
                     byte buffer[] = new byte[4096];
                     int readsize = 0;
                     long sum = 0;
                     while ((readsize = is.read(buffer)) > 0) {
                         fos.write(buffer, 0, readsize);
-//                        sum+=readsize;
-//                        int progress=(int)(sum*1.0f/total*100);
-                        //下载中
-
                     }
                     httpConnection.disconnect();
                     fos.flush();

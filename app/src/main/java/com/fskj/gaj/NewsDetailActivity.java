@@ -83,13 +83,6 @@ public class NewsDetailActivity extends AppCompatActivity {
             String type = bundle.getString("type", "");
             String title = bundle.getString("title", "");
             tvTitle.setText(title);
-//            if (type.equals("picNews")) {//代表图片新闻详情
-//                path = "/mobile/picnewsdetail.do?id="+ id;
-//            }else if (type.equals("notice")) {//代表通知通报详情
-//                path = "/mobile/noticedetail.do?id="+ id;
-//            }else if (type.equals("msg")) {
-//                path = "/mobile/msgdetail.do?id="+ id;
-//            }
             if (type.equals("2")) {//代表图片新闻详情
                 path = "/mobile/picnewsdetail.do?id="+ id;
             }else if (type.equals("1")) {//代表通知通报详情

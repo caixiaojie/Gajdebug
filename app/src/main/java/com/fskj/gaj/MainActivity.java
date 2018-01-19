@@ -353,6 +353,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void openUrl(String url){
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri content_url = Uri.parse(url);
+        intent.setData(content_url);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     /**
      * 提示版本更新的对话框
      */
@@ -365,8 +374,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onRight() {
-                busyView=BusyView.showText(activity,"正在更新");
-                downFile.down(BuildConfig.PIC_PATH+url,"apk");//下载最新的版本程序
+//                busyView=BusyView.showText(activity,"正在更新");
+//                downFile.down(BuildConfig.PIC_PATH+url,"apk");//下载最新的版本程序
+                openUrl(BuildConfig.PIC_PATH+url);
             }
         },false);
 
