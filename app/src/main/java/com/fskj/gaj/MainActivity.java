@@ -45,6 +45,7 @@ import com.fskj.gaj.request.GetAppVersionCode;
 import com.fskj.gaj.service.MyService;
 import com.fskj.gaj.system.RoomFragment;
 import com.fskj.gaj.view.BusyView;
+import com.fskj.gaj.view.ExitLoginDialog;
 import com.fskj.gaj.view.MessageConfirmDialog;
 import com.fskj.gaj.vo.GetAppVersionCommitVo;
 import com.fskj.gaj.vo.LoginCommitVo;
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fm;
 
     HomeFragment homeFragment ;
-//    NoticeFragment noticeFragment ;
     AttentionFragment attentionFragment;
     DutyFragment dutyFragment ;
     ProfileFragment profileFragment ;
@@ -186,13 +186,11 @@ public class MainActivity extends AppCompatActivity {
             switch (p) {
                 case 0:
                     tvHomePage.setTextColor(getResources().getColor(R.color.main_color));
-//                    tvNotice.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                     tvAttention.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                     tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                     tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
 
                     imgHome.setImageResource(R.mipmap.img_menu_home_on);
-//                    imgNotice.setImageResource(R.mipmap.img_menu_notice_off);
                     imgAttention.setImageResource(R.mipmap.img_menu_notice_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
@@ -206,37 +204,10 @@ public class MainActivity extends AppCompatActivity {
                     hideFragment(transaction);
                     //显示需要显示的fragment
                     transaction.show(homeFragment);
-//                    HomeFragment homeFragment = HomeFragment.getInstance();
-//                    transaction.replace(R.id.real_layout,homeFragment);
                     transaction.commit();
 
                     break;
-               /* case 1:
 
-                    tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-                    tvNotice.setTextColor(getResources().getColor(R.color.main_color));
-                    tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-                    tvRoom.setTextColor(getResources().getColor(R.color.txt_menu_gray));
-
-                    imgHome.setImageResource(R.mipmap.img_menu_home_off);
-                    imgNotice.setImageResource(R.mipmap.img_menu_notice_on);
-                    imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
-                    imgRoom.setImageResource(R.mipmap.img_profile_off);
-
-                    if (noticeFragment == null) {
-                        noticeFragment = NoticeFragment.getInstance();
-                        transaction.add(R.id.real_layout,noticeFragment);
-                    }
-                    //隐藏所有fragment
-                    hideFragment(transaction);
-                    //显示需要显示的fragment
-                    transaction.show(noticeFragment);
-
-//                    NoticeFragment noticeFragment = NoticeFragment.getInstance();
-//                    transaction.replace(R.id.real_layout,noticeFragment);
-                    transaction.commit();
-                lastpos = p;
-                    break;*/
                 case 1:
 
                     tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
@@ -259,9 +230,6 @@ public class MainActivity extends AppCompatActivity {
                     hideFragment(transaction);
                     //显示需要显示的fragment
                     transaction.show(attentionFragment);
-
-//                    NoticeFragment noticeFragment = NoticeFragment.getInstance();
-//                    transaction.replace(R.id.real_layout,noticeFragment);
                     transaction.commit();
                     lastpos = p;
                     break;
@@ -292,8 +260,7 @@ public class MainActivity extends AppCompatActivity {
                     lastpos = p;
                     break;
                 case 3:
-                    //拦截个人中心
-                    if (LoginInfo.getLoginState(activity)) {
+
                         tvHomePage.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                         tvAttention.setTextColor(getResources().getColor(R.color.txt_menu_gray));
                         tvDuty.setTextColor(getResources().getColor(R.color.txt_menu_gray));
@@ -314,10 +281,7 @@ public class MainActivity extends AppCompatActivity {
                         transaction.show(profileFragment);
                         transaction.commit();
                         lastpos = p;
-                    }else {
-                        //跳登录页面
-                        LoginActivity.gotoActivity(activity);
-                    }
+
                     break;
             }
     }
@@ -327,9 +291,6 @@ public class MainActivity extends AppCompatActivity {
         if(homeFragment != null){
             transaction.hide(homeFragment);
         }
-//        if(noticeFragment != null){
-//            transaction.hide(noticeFragment);
-//        }
         if(attentionFragment != null){
             transaction.hide(attentionFragment);
         }
@@ -397,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
      * 提示版本更新的对话框
      */
     private void showDialogUpdate(final String url) {
-        MessageConfirmDialog.show(activity, "版本升级", "发现新版本！请及时更新", "取消", "确定", new MessageConfirmDialog.OnConfirmClickListener() {
+        ExitLoginDialog.show(activity, "有新版本可用,是否升级版本", "取消", "确认", new ExitLoginDialog.OnConfirmClickListener() {
             @Override
             public void onLeft() {
 
@@ -410,6 +371,19 @@ public class MainActivity extends AppCompatActivity {
             }
         },false);
 
+      /*  MessageConfirmDialog.show(activity, "版本升级", "发现新版本！请及时更新", "取消", "确定", new MessageConfirmDialog.OnConfirmClickListener() {
+            @Override
+            public void onLeft() {
+
+            }
+
+            @Override
+            public void onRight() {
+                busyView=BusyView.showText(activity,"正在更新");
+                downFile.down(BuildConfig.PIC_PATH+url,"apk");//下载最新的版本程序
+            }
+        },false);
+*/
     }
 
     DownFile downFile = new DownFile(new DownFile.DownFileListener() {

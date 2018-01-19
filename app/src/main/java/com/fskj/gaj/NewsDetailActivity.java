@@ -1,6 +1,7 @@
 package com.fskj.gaj;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -100,6 +101,7 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         WebChromeClient wvcc = new WebChromeClient() {
             @Override
@@ -118,13 +120,24 @@ public class NewsDetailActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // 使用自己的WebView组件来响应Url加载事件，而不是使用默认浏览器器加载页面
-                webView.loadUrl(url);
+                Log.e("url",url);
+//                webView.loadUrl(url);
+                openUrl(url);
                 // 消耗掉这个事件。Android中返回True的即到此为止吧,事件就会不会冒泡传递了，我们称之为消耗掉
                 return true;
             }
         };
         webView.setWebViewClient(wvc);
         webView.loadUrl(BuildConfig.SERVER_IP + path);
+    }
+
+    private void openUrl(String url){
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri content_url = Uri.parse(url);
+        intent.setData(content_url);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
