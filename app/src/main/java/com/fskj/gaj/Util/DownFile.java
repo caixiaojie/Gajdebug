@@ -5,9 +5,17 @@ import android.os.Message;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * 功能说明:
@@ -52,7 +60,7 @@ public class DownFile {
     };
 
     public  void down(final String fileurl, String type){
-        Message message = updateHandler.obtainMessage();
+        final Message message = updateHandler.obtainMessage();
         message.what=0;
 
 
@@ -67,6 +75,62 @@ public class DownFile {
             updateFile.delete();
         }
 
+        //
+        OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
+                .build();
+        final Request request = new Request.Builder().url(fileurl).build();
+        final Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message message = updateHandler.obtainMessage();
+                message.obj = "文件下载失败";
+                message.sendToTarget();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                InputStream is = null;
+                byte[] buf = new byte[2048];
+                int len = 0;
+                FileOutputStream fos = null;
+               Message message = updateHandler.obtainMessage();
+
+                try {
+                    is = response.body().byteStream();
+                    fos = new FileOutputStream(updateFile);
+                    while ((len = is.read(buf)) != -1) {
+                        fos.write(buf, 0, len);
+                    }
+                    fos.flush();
+                    message.what = 1;
+                    message.obj=updateFile.getPath();
+                } catch (IOException e) {
+                    message.obj = "文件下载失败";
+                } finally {
+                    try {
+                        if (is != null) {
+                            is.close();
+                        }
+                        if (fos != null) {
+                            fos.close();
+                        }
+                    } catch (IOException e) {
+
+                    }
+                }
+                message.sendToTarget();
+            }
+        });
+
+
+
+
+
+
+
+/*
+        //
         new Thread(){
             @Override
             public void run() {
@@ -108,5 +172,6 @@ public class DownFile {
                 updateHandler.sendMessage(message);
             }
         }.start();
+        */
     }
 }

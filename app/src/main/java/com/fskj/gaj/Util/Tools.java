@@ -520,4 +520,13 @@ public class Tools {
 			return 1;
 		}
 	}
+
+
+	public static void deleteFilesByDirectory(File directory) throws IOException{
+		if (directory != null && directory.exists() && directory.isDirectory()) {
+			for (File item : directory.listFiles()) {
+				item.delete();
+			}
+		}
+	}
 }

@@ -30,6 +30,14 @@ public class YFileManager {
 			cache.mkdirs();
 	}
 
+	public static File getCachDirectory() throws IOException {
+		createDirectory();
+		File root = new File(Environment.getExternalStorageDirectory(), "gaj");
+		File cache = new File(root, "Cache");
+		return cache;
+	}
+
+
 	public File getRootDirectory() throws IOException {
 		return new File(Environment.getExternalStorageDirectory(), "gaj");
 	}
@@ -75,6 +83,15 @@ public class YFileManager {
 		File root = new File(Environment.getExternalStorageDirectory(), "gaj");
 		File cache = new File(root, "Cache");
 		return new File(cache, filename);
+	}
+	public static String getCachePath() {
+		createDirectory();
+		File root = new File(Environment.getExternalStorageDirectory(), "gaj");
+		File cache = new File(root, "Cache");
+		if(cache.exists()==false){
+			cache.mkdirs();
+		}
+		return cache.getPath();
 	}
 
 	public static void removeImageFiles() {

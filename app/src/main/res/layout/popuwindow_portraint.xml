@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/llScan"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <TextView
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:text="在线浏览(仅支持word、excel、pdf)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <LinearLayout
+        android:id="@+id/llDownload"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <TextView
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:text="浏览器打开(所有类型)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <LinearLayout
+        android:id="@+id/llCancel"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <TextView
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -55,7 +56,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
 
 //    private TextView tvCircle;
@@ -284,6 +285,19 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
     }
+/*
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if (homeFragment == null && fragment instanceof HomeFragment)
+            homeFragment = (HomeFragment) fragment;
+        if (attentionFragment == null && fragment instanceof AttentionFragment)
+            attentionFragment = (AttentionFragment) fragment;
+        if (dutyFragment == null && fragment instanceof DutyFragment)
+            dutyFragment = (DutyFragment) fragment;
+        if (profileFragment == null && fragment instanceof ProfileFragment)
+            profileFragment = (ProfileFragment) fragment;
+    }*/
 
     //隐藏所有的fragment
     private void hideFragment(FragmentTransaction transaction){

@@ -19,6 +19,7 @@ import com.fskj.gaj.Remote.ResultObjInterface;
 import com.fskj.gaj.Remote.ResultVO;
 import com.fskj.gaj.Util.StatusBarUtil;
 import com.fskj.gaj.Util.Tools;
+import com.fskj.gaj.Util.YFileManager;
 import com.fskj.gaj.request.LoginRequest;
 import com.fskj.gaj.view.BusyView;
 import com.fskj.gaj.vo.LoginCommitVo;
@@ -70,6 +71,11 @@ public class LoginActivity extends AppCompatActivity {
             MainActivity.gotoActivity(activity);
         }
 
+        try{
+            YFileManager.createDirectory();
+        }catch (Exception e){
+
+        }
         setContentView(R.layout.activity_login);
         StatusBarUtil.setFullSreen(activity);
         inflater = LayoutInflater.from(activity);
