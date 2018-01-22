@@ -231,6 +231,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         llDownload.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                popupWindow.dismiss();
                 openUrl(myUrl);
             }
         });

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fskj.gaj.ArticleSearchActivity;
+import com.fskj.gaj.FragmentRefresh;
 import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
@@ -34,7 +35,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements FragmentRefresh{
 
 
     private ImageView imgSearch;
@@ -216,4 +217,8 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void focusRefresh() {
+        //do nothing
+    }
 }

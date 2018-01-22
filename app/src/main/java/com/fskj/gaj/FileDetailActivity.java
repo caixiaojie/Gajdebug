@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fskj.gaj.Util.DownFile;
+import com.fskj.gaj.Util.StatusBarUtil;
 import com.fskj.gaj.Util.Tools;
 import com.fskj.gaj.Util.YFileManager;
 import com.fskj.gaj.view.BusyView;
@@ -47,7 +48,7 @@ public class FileDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_detail);
         activity=FileDetailActivity.this;
-
+        StatusBarUtil.setColor(activity,getResources().getColor(R.color.main_color),0);
         inflater = LayoutInflater.from(activity);
 
 

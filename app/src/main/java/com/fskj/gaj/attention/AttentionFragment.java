@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fskj.gaj.FragmentRefresh;
 import com.fskj.gaj.LoginInfo;
 import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultListInterface;
@@ -41,7 +42,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AttentionFragment extends Fragment {
+public class AttentionFragment extends Fragment implements FragmentRefresh{
 
 
     private TabLayout tabLayout;
@@ -272,6 +273,9 @@ public class AttentionFragment extends Fragment {
 
         }
     }
-
+    @Override
+    public void focusRefresh() {
+        //do nothing
+    }
 
 }

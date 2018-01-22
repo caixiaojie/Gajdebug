@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fskj.gaj.FragmentRefresh;
 import com.fskj.gaj.R;
 import com.fskj.gaj.Remote.ResultListInterface;
 import com.fskj.gaj.Remote.ResultTVO;
@@ -33,13 +34,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DutyFragment extends Fragment {
+public class DutyFragment extends Fragment implements FragmentRefresh{
 
 
     private RecyclerView recyclerView;
     private DutyRequest dutyRequest;
     private NoDataView noDataView;
-    private BusyView busyView;
 
     public static DutyFragment getInstance( ){
         DutyFragment f =new DutyFragment();
@@ -87,9 +87,9 @@ public class DutyFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 //初始化控件事件
         initWidgetEvent();
-        busyView = BusyView.showQuery(activity);
         dutyRequest.setDate(DateTime.getCurrentFormatTime());
         dutyRequest.send();
+
         v. findViewById(R.id.btn_tongxunlu).setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -106,7 +106,6 @@ public class DutyFragment extends Fragment {
         dutyRequest = new DutyRequest(activity, "", new ResultListInterface<DutyResultVo>() {
             @Override
             public void success(ResultTVO<DutyResultVo> data) {
-                busyView.dismiss();
                 ArrayList<DutyResultVo> dutyResultVos = data.getData();
                 dutyList.clear();
                 if (dutyResultVos != null && dutyResultVos.size() > 0) {
@@ -124,7 +123,6 @@ public class DutyFragment extends Fragment {
 
             @Override
             public void error(String errmsg) {
-                busyView.dismiss();
                 Toast.makeText(activity,errmsg,Toast.LENGTH_SHORT).show();
             }
         });
@@ -208,5 +206,16 @@ public class DutyFragment extends Fragment {
             }
         }
     }
+
+
+
+    @Override
+    public void focusRefresh() {
+        if(dutyRequest!=null) {
+            dutyRequest.setDate(DateTime.getCurrentFormatTime());
+            dutyRequest.send();
+        }
+    }
+
 
 }

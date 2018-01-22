@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fskj.gaj.AppConfig;
+import com.fskj.gaj.FragmentRefresh;
 import com.fskj.gaj.LoginInfo;
 import com.fskj.gaj.MainActivity;
 import com.fskj.gaj.R;
@@ -39,7 +40,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements FragmentRefresh{
 
 
     private TextView tvUserName;
@@ -302,4 +303,9 @@ public class ProfileFragment extends Fragment {
         }
     };
 
+
+    @Override
+    public void focusRefresh() {
+        //do nothing
+    }
 }

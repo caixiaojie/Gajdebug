@@ -109,6 +109,7 @@ public class MainActivity extends FragmentActivity {
     AttentionFragment attentionFragment;
     DutyFragment dutyFragment ;
     ProfileFragment profileFragment ;
+    FragmentRefresh fragmentRefresh;
 
     private BusyView busyView;
 
@@ -195,7 +196,7 @@ public class MainActivity extends FragmentActivity {
                     imgAttention.setImageResource(R.mipmap.img_attetntion_off);
                     imgDuty.setImageResource(R.mipmap.img_menu_duty_off);
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
-                lastpos = p;
+                     lastpos = p;
 
                     if (homeFragment == null) {
                         homeFragment = HomeFragment.getInstance();
@@ -206,7 +207,7 @@ public class MainActivity extends FragmentActivity {
                     //显示需要显示的fragment
                     transaction.show(homeFragment);
                     transaction.commit();
-
+                    fragmentRefresh=homeFragment;
                     break;
 
                 case 1:
@@ -226,12 +227,15 @@ public class MainActivity extends FragmentActivity {
                         attentionFragment = AttentionFragment.getInstance();
                         transaction.add(R.id.real_layout,attentionFragment);
                     }
+
+
                     //隐藏所有fragment
                     hideFragment(transaction);
                     //显示需要显示的fragment
                     transaction.show(attentionFragment);
                     transaction.commit();
                     lastpos = p;
+                    fragmentRefresh=attentionFragment;
                     break;
                 case 2:
 
@@ -246,18 +250,16 @@ public class MainActivity extends FragmentActivity {
                     imgRoom.setImageResource(R.mipmap.img_profile_off);
 
                     hideFragment(transaction);
-                    //if (dutyFragment == null) {
-                        dutyFragment = DutyFragment.getInstance();
-                        transaction.add(R.id.real_layout,dutyFragment);
-                    //}
-                    //隐藏所有fragment
 
+                    if (dutyFragment == null) {
+                        dutyFragment = DutyFragment.getInstance();
+                        transaction.add(R.id.real_layout, dutyFragment);
+                    }
                     //显示需要显示的fragment
-//                    transaction.show(dutyFragment);
-//                    DutyFragment dutyFragment = DutyFragment.getInstance();
-//                    transaction.replace(R.id.real_layout,dutyFragment);
+                    transaction.show(dutyFragment);
                     transaction.commit();
                     lastpos = p;
+                    fragmentRefresh=dutyFragment;
                     break;
                 case 3:
 
@@ -281,8 +283,11 @@ public class MainActivity extends FragmentActivity {
                         transaction.show(profileFragment);
                         transaction.commit();
                         lastpos = p;
-
+                    fragmentRefresh=profileFragment;
                     break;
+            }
+            if(fragmentRefresh!=null){
+                fragmentRefresh.focusRefresh();
             }
     }
 /*
@@ -308,8 +313,7 @@ public class MainActivity extends FragmentActivity {
             transaction.hide(attentionFragment);
         }
         if(dutyFragment != null){
-            transaction.remove(dutyFragment);
-            dutyFragment=null;
+            transaction.hide(dutyFragment);
         }
         if(profileFragment != null){
             transaction.hide(profileFragment);
