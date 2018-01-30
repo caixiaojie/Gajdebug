@@ -6,6 +6,17 @@
     android:orientation="vertical"
     tools:context="com.fskj.gaj.home.fragment.DailyPoliceFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.fskj.gaj.view.ShuiyinView
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <com.fskj.gaj.view.NoDataView
         android:id="@+id/no_data"
         android:layout_width="match_parent"
@@ -15,5 +26,7 @@
         android:id="@+id/xRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+            </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

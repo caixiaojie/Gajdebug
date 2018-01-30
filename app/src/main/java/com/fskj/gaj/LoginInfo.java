@@ -85,6 +85,14 @@ public class LoginInfo {
         return vo;
     }
 
+    public static String getLoginUsername(Context context) {
+        SharedPreferences sp = Tools.getSharePreferences(context, SIGN_INFO);
+        String username = sp.getString("username", "");
+
+        return username;
+    }
+
+
     public static void clearLoginCommitInfo(Context context) {
         SharedPreferences.Editor edit = Tools.getSharePreferences(context, SIGN_INFO).edit();
         edit.remove("password");

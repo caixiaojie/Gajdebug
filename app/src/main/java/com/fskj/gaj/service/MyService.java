@@ -169,10 +169,10 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        if (wakeLock != null) {
-//            wakeLock.release();
-//            wakeLock = null;
-//        }
+        if (thread != null) {
+            thread.interrupt();
+            thread = null;
+        }
     }
 
     @Override

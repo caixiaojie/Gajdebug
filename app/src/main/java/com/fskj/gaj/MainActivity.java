@@ -70,6 +70,7 @@ public class MainActivity extends FragmentActivity {
     private TextView tvCount;
     private LoginCommitVo loginCommitVo;
     private AttentionToZeroRequest attentionToZeroRequest;
+    private Intent intentService;
 
     public static void gotoActivity(Activity activity ){
         Intent intent=new Intent(activity,MainActivity.class);
@@ -158,7 +159,7 @@ public class MainActivity extends FragmentActivity {
         setSelected(0);
 
         //绑定服务
-        Intent intentService = new Intent(activity, MyService.class);
+        intentService = new Intent(activity, MyService.class);
         startService(intentService);
 
         //注册广播
@@ -290,7 +291,6 @@ public class MainActivity extends FragmentActivity {
                 fragmentRefresh.focusRefresh();
             }
     }
-/*
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
@@ -302,7 +302,7 @@ public class MainActivity extends FragmentActivity {
             dutyFragment = (DutyFragment) fragment;
         if (profileFragment == null && fragment instanceof ProfileFragment)
             profileFragment = (ProfileFragment) fragment;
-    }*/
+    }
 
     //隐藏所有的fragment
     private void hideFragment(FragmentTransaction transaction){
@@ -509,6 +509,9 @@ public class MainActivity extends FragmentActivity {
                 }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
             } else {
+                if (intentService != null) {
+                    stopService(intentService);//停止服务
+                }
                 finish();
             }
             return false;

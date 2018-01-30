@@ -66,10 +66,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity=LoginActivity.this;
-        //已登录直接跳主页
-        if (LoginInfo.getLoginState(activity)) {
-            MainActivity.gotoActivity(activity);
-        }
 
         try{
             YFileManager.createDirectory();
