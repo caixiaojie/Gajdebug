@@ -38,7 +38,7 @@ public class ShuiyinView extends View {
 
     private void initPaint(Context context) {
         paint = new Paint();
-        paint.setColor(Color.parseColor("#0fff0000"));
+        paint.setColor(Color.parseColor("#18ff0000"));
         paint.setStrokeWidth(20);
         paint.setTextSize(150);
 
@@ -46,6 +46,7 @@ public class ShuiyinView extends View {
         if(txt==null||txt.equals("")){
             txt="重庆江北公安";
         }
+        txt=String.format("%s  %s  %s  %s",txt,txt,txt,txt);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class ShuiyinView extends View {
         canvas.rotate(40, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
 
         for(int i=0;i<8;i++) {
-            canvas.drawText(txt, 250, 110+250*i, paint);
+            canvas.drawText(txt, -80, 110+250*i, paint);
         }
     }
 }
